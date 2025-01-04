@@ -14,6 +14,8 @@ export interface FormField {
     attr?: AnyObject
     // 指定配置项属性
     options?: Array
+    // 表单项的验证规则
+    rules?: Array
     // 条件表达式，判断表单项是否隐藏
     vif?: Function
     // 其他字段

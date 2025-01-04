@@ -28,7 +28,7 @@ const props = defineProps({
      */
     labelWidth: {
         type: String,
-        default: '100px'
+        default: 'auto'
     },
     rules: {}
 })
@@ -43,10 +43,11 @@ const formData: AnyObject = defineModel({ required: true })
 const getFormItemWidth = (field: FormField) => {
     const fieldColspan = field.colspan ? field.colspan / props.colSize : props.colSize
 
+    // gap = 20px
     if (props.labelPostion === 'top') {
-        return `flex: 0 1 calc((${100 / fieldColspan}% - 10px)); margin-right:10px;`
+        return `flex: 0 1 calc((${100 / fieldColspan}% - 10px - 20px)); margin-right:10px;`
     } else {
-        return `flex: 0 1 ${100 / fieldColspan}%`
+        return `flex: 0 1 calc(${100 / fieldColspan}% - 20px)`
     }
 }
 
@@ -55,11 +56,10 @@ const getFormItemWidth = (field: FormField) => {
  */
 const computedFields = computed(() => {
     return props.fields?.map(field => {
-        const { name, label, type, vif, attrs, ...others } = field; 
+        const { name, label, type, vif, rules, attrs, ...others } = field; 
 
         const fieldOptions = {
             // 将一些组件外部使用属性隔离开，其他的属性传递给组件
-            
             ...field,
             attrs: {
                 ...others,
@@ -70,8 +70,6 @@ const computedFields = computed(() => {
                 componentName: getComponentName(field.type)
             }
         }
-        console.log(fieldOptions);
-        
         return fieldOptions
     })
 })
@@ -94,10 +92,17 @@ const getComponentName = (type: String | undefined) => {
 
 </script>
 <template>
-    <el-form :model="formData" :label-width="labelWidth" class="form__wrapper" v-bind="$attrs">
+    <el-form :model="formData" :label-width="labelWidth" class="form__wrapper" v-bind="$attrs" :rules="rules">
         <template v-for="(field, index) in computedFields" :key="index">
-            <el-form-item :style="field.style" :label="field.label" v-bind="$attrs" v-if="field.vif && !field.vif(formData)">
-                <component :is="field.componentName" v-model="formData[field.name]" v-bind="field.attrs"/>
+            <el-form-item :style="field.style" :label="field.label" :prop="field.name" :rules="field.rules" v-bind="$attrs" v-if="field.vif ? field.vif(formData) : true">
+                <template #label>
+                    <slot :name="field.name + 'Label'" :field="field" :data="formData">
+                        {{ field.label }}
+                    </slot>
+                </template>
+                <slot :name="field.name">
+                    <component :is="field.componentName" v-model="formData[field.name]" v-bind="field.attrs"/>
+                </slot>
             </el-form-item>
         </template>
     </el-form>
@@ -107,12 +112,10 @@ const getComponentName = (type: String | undefined) => {
 .form__wrapper {
     display: flex;
     flex-wrap: wrap;
+    column-gap: 20px;
 
     :deep(.el-form-item__label) {
-        line-height: normal;
-        align-items: center;
         padding: 0 12px 0 12px;
-        height: auto;
     }
 
     :deep(.el-form-item__content) {
