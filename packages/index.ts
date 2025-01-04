@@ -1,6 +1,7 @@
 import type { Component, App } from 'vue'
 import FCheckbox from './components/checkbox'
 import FRadio from './components/radio'
+import FSelect from './components/select'
 import FForm from './components/form'
 
 // 存储组件列表
@@ -9,7 +10,8 @@ const components: {
 } = {
     FForm,
     FCheckbox,
-    FRadio
+    FRadio,
+    FSelect
 }
 
 /**
@@ -18,7 +20,8 @@ const components: {
 export {
     FForm,
     FCheckbox,
-    FRadio
+    FRadio,
+    FSelect
 }
 
 /**

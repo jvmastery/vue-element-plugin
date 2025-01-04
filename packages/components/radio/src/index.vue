@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed, PropType, ref, watchEffect } from 'vue'
-import { getAxios } from '../../../axiosInstance'
-import { AxiosRequestConfig } from 'axios'
+import { getRequest } from '../../../axiosInstance'
 
 const props = defineProps({
     /**
@@ -61,8 +60,6 @@ const props = defineProps({
     }
 })
 
-// 选中数据列表
-const checkedValue = ref([])
 /**
  * 远程请求数据
  */
@@ -72,42 +69,7 @@ const checkedValue = ref([])
  * 监听数据请求url，请求数据
  */
 watchEffect(() => {
-    if (!props.url) {
-        return
-    }
-
-    /**
-     * 请求配置
-     */
-    const requestConfig: AxiosRequestConfig = {
-        url: props.url,
-        method: props.method
-    }
-
-    // 设置请求参数
-    if (props.onBeforeLoad) {
-        const paramResult = props.onBeforeLoad()
-        if (paramResult) {
-            if (props.method.toUpperCase() == 'GET') {
-                requestConfig.params = paramResult
-            } else {
-                requestConfig.data = paramResult
-            }
-        }
-    }
-
-    /**
-     * 请求数据
-     */
-    getAxios().request(requestConfig).then(resp => {
-        let showResult: any
-        if (props.onLoadSuccess) {
-            const result = props.onLoadSuccess(resp)
-            showResult = result ? result : resp            
-        } else {
-            showResult = resp
-        }
-
+    getRequest(props.url, props.method, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
         remoteRequestData.value.splice(0, remoteRequestData.value.length, ...showResult)
     })
 })
@@ -134,7 +96,7 @@ const styleType = computed(() => {
 </script>
 
 <template>
-    <el-radio-group v-model="checkedValue" v-bind="$attrs">
+    <el-radio-group v-bind="$attrs">
         <slot>
             <component 
                 v-for="(item, index) in radioOptions" 
