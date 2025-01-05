@@ -31,7 +31,7 @@ export const getAxios = (): AxiosInstance => {
  * @param onLoadSuccess     后置回调数据
  * @returns 
  */
-export const getRequest = (url: string | undefined, method: string, onBeforeLoad: Function, onLoadSuccess: Function) => {
+export const getRequest = (url: string | undefined, method: string, onBeforeLoad: Function | undefined, onLoadSuccess: Function | undefined) => {
     if (!url) {
         return Promise.reject()
     }
@@ -59,7 +59,7 @@ export const getRequest = (url: string | undefined, method: string, onBeforeLoad
     /**
      * 请求数据
      */
-    getAxios().request(requestConfig).then(resp => {
+    return getAxios().request(requestConfig).then(resp => {
         let showResult: any
         if (onLoadSuccess) {
             const result = onLoadSuccess(resp)

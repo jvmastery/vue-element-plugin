@@ -30,7 +30,7 @@ const props = defineProps({
         type: String,
         default: 'auto'
     },
-    rules: {}
+    rules: {} as any
 })
 
 // 表单属性

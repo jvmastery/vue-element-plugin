@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, PropType, ref, watch, watchEffect, useSlots, defineModel } from 'vue'
+import { computed, PropType, ref, watch, watchEffect, useSlots } from 'vue'
 import { getRequest } from '../../../axiosInstance'
 import type { CheckboxValueType } from 'element-plus'
 
@@ -59,28 +59,33 @@ const props = defineProps({
         default: 'label'
     }
 })
-const slots = useSlots()
-const selectValue = defineModel()
+const slots: any = useSlots()
+const selectValue = defineModel({required: true, default: {}})
 
 // 全选功能
 const checkAll = ref(false)
 const indeterminate = ref(false)
 
 /**
+ * 远程请求数据
+ */
+ const remoteRequestData = ref<AnyObject[]>([])
+
+/**
  * 监听数据请求url，请求数据
  */
 watchEffect(() => {
     getRequest(props.url, props.method, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
-        remoteRequestData.value.splice(0, remoteRequestData.value.length, ...showResult)
+        remoteRequestData.value.splice(0, remoteRequestData.value.length, ...resp)
     })
 })
 
 // 监听是否已经全选
-watch(selectValue, (val) => {
+watch(selectValue, (val: any) => {
   if (val.length === 0) {
     checkAll.value = false
     indeterminate.value = false
-  } else if (val.length === selectOptions.length) {
+  } else if (val.length === selectOptions.value.length) {
     checkAll.value = true
     indeterminate.value = false
   } else {

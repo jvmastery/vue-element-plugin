@@ -3,6 +3,7 @@ import FCheckbox from './components/checkbox'
 import FRadio from './components/radio'
 import FSelect from './components/select'
 import FForm from './components/form'
+import { setAxios } from './axiosInstance'
 
 // 存储组件列表
 const components: {
@@ -38,8 +39,11 @@ export const installComponents = (app: App) => {
  * vue插件
  * @param app
  */
-const install: any = (app: any) => {
+const install: any = (app: any, options: AnyObject = {}) => {
     installComponents(app)
+    if (options.axios) {
+        setAxios(options.axios)
+    }
 }
 
 // 默认导出这个插件，供 `app.use()` 使用

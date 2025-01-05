@@ -70,7 +70,7 @@ const props = defineProps({
  */
 watchEffect(() => {
     getRequest(props.url, props.method, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
-        remoteRequestData.value.splice(0, remoteRequestData.value.length, ...showResult)
+        remoteRequestData.value.splice(0, remoteRequestData.value.length, ...resp)
     })
 })
 
