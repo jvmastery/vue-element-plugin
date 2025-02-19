@@ -3,6 +3,7 @@ import FCheckbox from './components/checkbox'
 import FRadio from './components/radio'
 import FSelect from './components/select'
 import FForm from './components/form'
+import FMenu from './components/menu'
 import { setAxios } from './axiosInstance'
 
 // 存储组件列表
@@ -12,7 +13,8 @@ const components: {
     FForm,
     FCheckbox,
     FRadio,
-    FSelect
+    FSelect,
+    FMenu
 }
 
 /**
@@ -22,7 +24,8 @@ export {
     FForm,
     FCheckbox,
     FRadio,
-    FSelect
+    FSelect,
+    FMenu
 }
 
 /**
