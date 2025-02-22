@@ -130,4 +130,5 @@ dist
 .pnp.*
 
 # docs
-docs
+docs/.vitepress/cache
+docs/.vitepress/dist

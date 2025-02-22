@@ -1,63 +1,64 @@
 {
-    "name": "@jvmaster/f-ui",
-    "version": "1.0.0",
-    "description": "基于element-plus二次封装基础组件库",
-    "main": "dist/f-ui.umd.js",
-    "module": "dist/f-ui.es.js",
-    "types": "dist/index.d.ts",
-    "type": "module",
-    "files": [
-        "dist",
-        "typings",
-        "global.d.ts"
-    ],
-    "scripts": {
-        "build": "vite build",
-        "docs:build": "vitepress build docs",
-        "docs:dev": "vitepress dev docs"
-    },
-    "keywords": [    
-        "element-ui",
-        "element-plus",
-        "vite",
-        "ui",
-        "vue",
-        "f-ui",
-        "封装组件",
-        "jvmaster"
-    ],
-    "author": "jvmaster",
-    "license": "MIT",
-    "peerDependencies": {
-        "element-plus": "^2.8.6"
-    },
-    "dependencies": {
-        "element-plus": "^2.8.6",
-        "vue": "^3.5.10"
-    },
-    "devDependencies": {
-        "@element-plus/icons-vue": "^2.3.1",
-        "@types/node": "^22.7.4",
-        "@vitejs/plugin-vue": "^5.1.4",
-        "@vueuse/core": "^11.1.0",
-        "eslint": "^9.11.1",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-prettier": "^5.2.1",
-        "eslint-plugin-vue": "^9.28.0",
-        "markdown-it-container": "^4.0.0",
-        "normalize.css": "^8.0.1",
-        "prettier": "^3.3.3",
-        "sass": "^1.80.4",
-        "typescript": "^5.6.2",
-        "typescript-eslint": "^8.7.0",
-        "unplugin-auto-import": "^0.18.3",
-        "unplugin-element-plus": "^0.8.0",
-        "unplugin-vue-components": "^0.27.4",
-        "vite": "^5.4.8",
-        "vite-plugin-compression": "^0.5.1",
-        "vite-plugin-dts": "^4.3.0",
-        "vitepress": "^1.4.1",
-        "vue-tsc": "^2.1.6",
-        "axios": "^1.7.9"
-    }
+  "name": "@jvmaster/f-ui",
+  "version": "1.0.0",
+  "description": "基于element-plus二次封装基础组件库",
+  "main": "dist/f-ui.umd.js",
+  "module": "dist/f-ui.es.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist",
+    "typings",
+    "global.d.ts"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "docs:build": "vitepress build docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "keywords": [
+    "element-ui",
+    "element-plus",
+    "vite",
+    "ui",
+    "vue",
+    "f-ui",
+    "封装组件",
+    "jvmaster"
+  ],
+  "author": "jvmaster",
+  "license": "MIT",
+  "peerDependencies": {
+    "element-plus": "^2.8.6"
+  },
+  "dependencies": {
+    "element-plus": "^2.8.6",
+    "vue": "^3.5.10"
+  },
+  "devDependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "@types/node": "^22.7.4",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vueuse/core": "^11.1.0",
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-vue": "^9.28.0",
+    "markdown-it-container": "^4.0.0",
+    "normalize.css": "^8.0.1",
+    "prettier": "^3.3.3",
+    "sass": "^1.80.4",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.7.0",
+    "unplugin-auto-import": "^0.18.3",
+    "unplugin-element-plus": "^0.8.0",
+    "unplugin-vue-components": "^0.27.4",
+    "vite": "^5.4.8",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-dts": "^4.3.0",
+    "vitepress": "^1.4.1",
+    "vue-tsc": "^2.1.6",
+    "axios": "^1.7.9"
+  }
 }
