@@ -6,7 +6,7 @@ export interface MenuItemProp {
     /**
      * 父菜单ID
      */
-    parentId?: stirng
+    parentId?: string
     /**
      * 标识
      */
@@ -18,5 +18,5 @@ export interface MenuItemProp {
     /**
      * 子菜单
      */
-    children?: MenuItem[]
+    children?: MenuItemProp[]
 }

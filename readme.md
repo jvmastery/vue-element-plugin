@@ -6,12 +6,12 @@ https://github.com/wocwin/t-ui-plus/blob/master/packages/index.ts
 
 # 使用
 ## 1、引入依赖
-npm install vue-element-plugin
+npm install @jvmaster/f-ui
 
 ## 2、使用
 ### 2.1 全局引入
 ```
-import VueElementPlugin from 'vue-element-plugin'
+import VueElementPlugin from '@jvmaster/f-ui'
 const app = createApp(App)
 
 app.use(VueElementPlugin)
@@ -19,6 +19,6 @@ app.use(VueElementPlugin)
 
 ### 按需引入
 ```
-import { ElementForm } from 'vue-element-plugin'
+import { ElementForm } from '@jvmaster/f-ui'
 
 ```

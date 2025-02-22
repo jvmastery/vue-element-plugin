@@ -1,21 +1,32 @@
 {
-    "name": "vue-element-plugin",
-    "version": "1.0.2",
-    "description": "",
-    "main": "dist/vue-element-plugin.umd.js",
-    "module": "dist/vue-element-plugin.es.js",
+    "name": "@jvmaster/f-ui",
+    "version": "1.0.0",
+    "description": "基于element-plus二次封装基础组件库",
+    "main": "dist/f-ui.umd.js",
+    "module": "dist/f-ui.es.js",
     "types": "dist/index.d.ts",
     "type": "module",
     "files": [
-        "dist"
+        "dist",
+        "typings",
+        "global.d.ts"
     ],
     "scripts": {
         "build": "vite build",
         "docs:build": "vitepress build docs",
         "docs:dev": "vitepress dev docs"
     },
-    "keywords": [],
-    "author": "",
+    "keywords": [    
+        "element-ui",
+        "element-plus",
+        "vite",
+        "ui",
+        "vue",
+        "f-ui",
+        "封装组件",
+        "jvmaster"
+    ],
+    "author": "jvmaster",
     "license": "MIT",
     "peerDependencies": {
         "element-plus": "^2.8.6"

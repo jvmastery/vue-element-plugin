@@ -1,5 +1,7 @@
 import type { AppContext, App, Directive, Plugin } from 'vue'
 
+export const NOOP = () => {};
+
 export type SFCWithInstall<T> = T & Plugin
 export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
     _context: AppContext | null
@@ -61,3 +63,15 @@ export const withInstallDirective = <T extends Directive>(directive: T, name: st
 
     return directive as SFCWithInstall<T>
 }
+
+/**
+ * 传入的组件添加一个 install 方法，并将它设置为 NOOP
+ * @param component 组件
+ * @returns 
+ */
+export const withNoopInstall = <T>(component: T) => {
+    ;(component as SFCWithInstall<T>).install = NOOP
+  
+    return component as SFCWithInstall<T>
+}
+  

@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import MenuItem from './MenuItem.vue'
-import type { MenuItemProp } from './index.d.ts'
+import MenuItem from './menu-item.vue'
+import type { MenuItemProp } from './menu'
+
+defineOptions({
+    name: 'FMenu'
+})
 
 withDefaults(
     defineProps<{

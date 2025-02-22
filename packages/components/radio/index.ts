@@ -1,6 +1,9 @@
-import Radio from './src/index.vue'
+import Radio from './src/radio.vue'
 import { withInstall } from '../../utils/vue/install'
 import type { SFCWithInstall } from '../../utils/vue/install'
 
-const FRadio: SFCWithInstall<typeof Radio> = withInstall(Radio)
+export const FRadio: SFCWithInstall<typeof Radio> = withInstall(Radio)
 export default FRadio
+
+export * from './src/radio'
+export type { RadioInstance } from './src/instance'

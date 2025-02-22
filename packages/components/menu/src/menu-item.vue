@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import type { MenuItemProp } from './index'
+import type { MenuItemProp } from './menu'
+
+defineOptions({
+    name: 'FMenuItem'
+})
 
 const props = withDefaults(
     defineProps<{

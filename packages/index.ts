@@ -1,49 +1,13 @@
-import type { Component, App } from 'vue'
-import FCheckbox from './components/checkbox'
-import FRadio from './components/radio'
-import FSelect from './components/select'
-import FForm from './components/form'
-import FMenu from './components/menu'
+import type { App } from 'vue'
 import { setAxios } from './axiosInstance'
-
-// 存储组件列表
-const components: {
-    [propName: string]: Component
-} = {
-    FForm,
-    FCheckbox,
-    FRadio,
-    FSelect,
-    FMenu
-}
-
-/**
- * 添加按需引入
- */
-export {
-    FForm,
-    FCheckbox,
-    FRadio,
-    FSelect,
-    FMenu
-}
-
-/**
- *  插件注册
- * @param app 
- */
-export const installComponents = (app: App) => {
-    for (const key in components) {
-        app.component(key, components[key])
-    }
-}
+import components from './component'
 
 /**
  * vue插件
  * @param app
  */
-const install: any = (app: any, options: AnyObject = {}) => {
-    installComponents(app)
+const install = (app: App, options: AnyObject = {}) => {
+    components.forEach((c) => app.use(c))
     if (options.axios) {
         setAxios(options.axios)
     }
@@ -53,3 +17,6 @@ const install: any = (app: any, options: AnyObject = {}) => {
 export default {
     install
 }
+
+export * from './components'
+// export * from '@/hooks'

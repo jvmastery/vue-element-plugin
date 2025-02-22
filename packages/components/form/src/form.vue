@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { computed, PropType, reactive, ref } from 'vue'
-import type { FormField } from './index.d.ts'
+import type { FormField } from './form'
+
+defineOptions({
+    name: 'FForm'
+})
 
 const props = defineProps({
     /**
