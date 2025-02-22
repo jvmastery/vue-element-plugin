@@ -9,6 +9,10 @@ export default defineConfig({
   themeConfig: {
     logo: "/favicon.ico",
     siteTitle: "基础组件文档",
+    outline: {
+      level: [2, 4],
+      label: '页面导航'
+    },
     socialLinks: [{ icon: "github", link: "" }],
     nav: [
       {
