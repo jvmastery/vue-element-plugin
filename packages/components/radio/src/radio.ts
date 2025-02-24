@@ -1,5 +1,5 @@
 import { ExtractPropTypes } from 'vue'
-import { checkboxBaseProps } from '../../checkbox'
+import { checkboxBaseProps } from '@/components/checkbox'
 
 export const radioProps = {
     ...checkboxBaseProps

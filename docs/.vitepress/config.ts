@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress"
 import { mdPlugin } from "./config/plugins"
+import path from "path"
 export default defineConfig({
   title: "基础组件文档",
   description: "基于Element-plus基础组件封装使用",
@@ -65,5 +66,12 @@ export default defineConfig({
     // light: #f9fafb, dark: --vp-code-block-bg
     theme: { light: "github-light", dark: "github-dark" },
     config: md => mdPlugin(md)
+  },
+  vite: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, '../../packages')
+      }
+    }
   }
 })

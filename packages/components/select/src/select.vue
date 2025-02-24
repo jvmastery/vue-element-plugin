@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect, useSlots } from 'vue'
-import { getRequest } from '../../../axiosInstance'
+import { getRequest } from '@/axiosInstance'
 import type { CheckboxValueType } from 'element-plus'
 import { selectProps } from './select'
 

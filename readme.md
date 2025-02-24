@@ -11,14 +11,14 @@ npm install @jvmaster/f-ui
 ## 2、使用
 ### 2.1 全局引入
 ```
-import VueElementPlugin from '@jvmaster/f-ui'
+import Fui from '@jvmaster/f-ui'
 const app = createApp(App)
 
-app.use(VueElementPlugin)
+app.use(Fui)
 ```
 
 ### 按需引入
 ```
-import { ElementForm } from '@jvmaster/f-ui'
+import { FForm } from '@jvmaster/f-ui'
 
 ```

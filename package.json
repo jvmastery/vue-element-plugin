@@ -11,6 +11,7 @@
     "typings",
     "global.d.ts"
   ],
+  "private": true,  
   "scripts": {
     "build": "vite build",
     "docs:build": "vitepress build docs",

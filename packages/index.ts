@@ -18,5 +18,5 @@ export default {
     install
 }
 
-export * from './components'
+export * from '@/components'
 // export * from '@/hooks'

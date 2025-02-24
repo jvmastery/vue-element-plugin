@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue'
-import { getRequest } from '../../../axiosInstance'
+import { getRequest } from '@/axiosInstance'
 import { radioProps } from './radio'
 
 defineOptions({

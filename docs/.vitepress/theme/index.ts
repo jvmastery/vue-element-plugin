@@ -10,7 +10,7 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue"
 import { VPDemo } from "../vitepress"
 
 // 基于element-plus二次封装基础组件
-import FUi from "../../../packages"
+import Fui from "../../../packages"
 import './style.scss'
 
 // axios实例
@@ -30,7 +30,7 @@ export default {
       ctx.app.component(key, component)
     }
     // 全局注册基础组件
-    ctx.app.use(FUi)
+    ctx.app.use(Fui)
     setAxios(axios)
 
     ctx.app.component("Demo", VPDemo)

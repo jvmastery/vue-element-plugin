@@ -36,13 +36,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         ],
         resolve: {
             alias: {
-                '@': resolve(__dirname, 'packages')
+                '@': resolve(__dirname, './packages')
             }
         },
         build: {
             lib: {
-                entry: resolve(__dirname, 'packages/index.ts'),
-                name: 'Fui',
+                entry: resolve(__dirname, './packages/index.ts'),
+                name: 'f-ui',
                 fileName: format => `vue-element-plugin.${format}.js`
             },
             rollupOptions: {

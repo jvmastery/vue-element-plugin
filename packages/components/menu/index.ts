@@ -1,7 +1,7 @@
 import Menu from './src/menu.vue'
 import MenuItem from './src/menu-item.vue'
-import { withInstall, withNoopInstall } from '../../utils/vue/install'
-import type { SFCWithInstall } from '../../utils/vue/install'
+import { withInstall, withNoopInstall } from '@/utils/vue/install'
+import type { SFCWithInstall } from '@/utils/vue/install'
 
 export const FMenu: SFCWithInstall<typeof Menu> & {
     MenuItem: typeof MenuItem

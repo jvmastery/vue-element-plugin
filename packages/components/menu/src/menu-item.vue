@@ -5,7 +5,7 @@ defineOptions({
     name: 'FMenuItem'
 })
 
-const props = withDefaults(
+withDefaults(
     defineProps<{
         data: MenuItemProp
     }>(),
