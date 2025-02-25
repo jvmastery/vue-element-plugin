@@ -19,6 +19,11 @@
     }
 }
 
+.vp-doc table {
+    width: 100%;
+    display: inline-table;
+}
+
 #nprogress {
     pointer-events: none;
 }

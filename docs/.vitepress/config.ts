@@ -14,13 +14,14 @@ export default defineConfig({
       level: [2, 4],
       label: '页面导航'
     },
-    socialLinks: [{ icon: "github", link: "" }],
+    socialLinks: [{ icon: "github", link: "https://github.com/jvmastery/vue-element-plugin" }],
     nav: [
       {
         text: "安装指南",
-        link: "/components/"
+        link: "/pages/components/"
       },
-      { text: "基础组件", link: "/components/TInput/base.md" },
+      { text: "基础组件", link: "/pages/components/radio/" },
+      { text: "Hooks", link: "/pages/hooks/use-debounce/" }
     //   {
     //     text: "GitHub地址",
     //     link: "https://github.com/wocwin/t-ui-plus"
@@ -41,19 +42,29 @@ export default defineConfig({
     //   }
     ],
     sidebar: {
-      "/components": [
+      "/pages/components": [
         {
           text: "常用组件",
           items: [
-            { text: "单选框组件", link: "/components/radio/" },
-            { text: "复选框组件", link: "/components/checkbox/" },
-            { text: "select组件", link: "/components/select/" },
+            { text: "单选框组件", link: "/pages/components/radio/" },
+            { text: "复选框组件", link: "/pages/components/checkbox/" },
+            { text: "select组件", link: "/pages/components/select/" },
           ]
         },
         {
           text: "复杂组件",
           items: [
-            { text: "表单组件", link: "/components/form/" }
+            { text: "表单组件", link: "/pages/components/form/" }
+          ]
+        }
+      ],
+      "/pages/hooks": [
+        {
+          text: "常用函数",
+          items: [
+            { text: "useDebounce", link: "/pages/hooks/use-debounce/" },
+            { text: "useThrottle", link: "/pages/hooks/use-throttle/" },
+            { text: "useTimeout", link: "/pages/hooks/use-timeout/" },
           ]
         }
       ]
@@ -70,7 +81,8 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '../../packages')
+        '@': path.resolve(__dirname, '../../packages'),
+        '@f-ui': path.resolve(__dirname, '../../packages')
       }
     }
   }

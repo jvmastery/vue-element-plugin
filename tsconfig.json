@@ -24,7 +24,6 @@
       // 模块名到基于 baseUrl的路径映射的列表。
       "paths": {
           "@f-ui/*": ["packages/*"],
-          "f-ui": ["packages"],
           "@/*": ["packages/*"]
       }
   },
