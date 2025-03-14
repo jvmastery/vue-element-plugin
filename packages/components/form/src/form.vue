@@ -98,7 +98,7 @@ const getComponentName = (type: String | undefined) => {
 <template>
     <el-form :model="formData" :label-width="labelWidth" class="form__wrapper" v-bind="$attrs" :rules="rules">
         <template v-for="(field, index) in computedFields" :key="index">
-            <el-form-item :style="field.style" :label="field.label" :prop="field.name" :rules="field.rules" v-bind="$attrs" v-if="field.vif ? field.vif(formData) : true">
+            <el-form-item :style="field.style" :label="field.label" :label-width="field.labelWidth" :prop="field.name" :rules="field.rules" v-bind="$attrs" v-if="field.vif ? field.vif(formData) : true">
                 <template #label>
                     <slot :name="field.name + 'Label'" :field="field" :data="formData">
                         {{ field.label }}

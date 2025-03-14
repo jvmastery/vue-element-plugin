@@ -44,7 +44,6 @@ export const useDebounce = (value: (...args: any[]) => any, options: DebounceOpt
 export const useDataDebounce = (value: any, options?: DebounceOptions) => {
     const debounceValue = ref()
     const debounce = useDebounce((newValue: any) => {
-        console.log(222)
         debounceValue.value = newValue
     }, options)
 

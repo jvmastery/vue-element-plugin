@@ -35,6 +35,13 @@ export const selectProps = {
         default: true
     },
     /**
+     * 使用value值左右选项的class属性
+     */
+    useValueClass: {
+        type: Boolean,
+        default: false
+    },
+    /**
      * 是否有全选功能
      */
     selectAll: {
@@ -54,7 +61,11 @@ export const selectProps = {
     label: {
         type: String,
         default: 'label'
-    }
+    },
+    /**
+     * 定义样式
+     */
+    styleFormatter: Function
 }
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>

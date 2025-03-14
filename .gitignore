@@ -132,3 +132,6 @@ dist
 # docs
 docs/.vitepress/cache
 docs/.vitepress/dist
+
+# tiptap
+.npmrc

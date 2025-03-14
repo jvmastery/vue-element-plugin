@@ -6,6 +6,8 @@ export interface FormField {
     name: string
     // 对应的显示名
     label: string
+    // 标签宽度
+    labelWidth?: string | number
     // 占据的列数
     colspan?: number
     // 表单项类型

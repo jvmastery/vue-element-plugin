@@ -69,6 +69,17 @@ const handleCheckAll = (val: CheckboxValueType) => {
     selectValue.value = []
   }
 }
+
+/**
+ * 计算样式
+ */
+const optionStyles = (option: any, index: number) => {
+    if (props.styleFormatter) {
+        return {...props.styleFormatter(option, index)}
+    }
+
+    return;
+}
 </script>
 
 <template>
@@ -90,7 +101,9 @@ const handleCheckAll = (val: CheckboxValueType) => {
 
         <slot :options="selectOptions">
             <el-option
-                v-for="item in selectOptions"
+                v-for="(item, index) in selectOptions"
+                :class="[ useValueClass ? item[value] : '' ]"
+                :style="optionStyles(item, index)"
                 :key="item[value]"
                 :label="item[label]"
                 :value="item[value]"

@@ -1,6 +1,6 @@
 /**
  * 对象
  */
-interface AnyObject {
+export interface AnyObject {
     [key: string]: any;
-  }
+}

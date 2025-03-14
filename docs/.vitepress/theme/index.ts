@@ -30,8 +30,24 @@ export default {
       ctx.app.component(key, component)
     }
     // 全局注册基础组件
-    ctx.app.use(Fui)
-    setAxios(axios)
+    ctx.app.use(Fui, {
+      request: axios.create({
+        baseURL: 'http://localhost:8080',
+        timeout: 5000
+      }),
+      uploadConfig: {
+        rootPath: 'upload',
+        accessKey: 'oscRVRGynjjHn47hYvLAf6jN_qdaldBF7Idz7Srr',
+        secretKey: 'OeUPQG4QxQvmP8S6Qs6AvNKmCz8NU2ZplnXzJLZa',
+        bucket: 'test-editor001'
+      }
+    })
+    // setAxios(axios)
+
+    // rootPath: 'upload',
+    //     accessKey: 'oscRVRGynjjHn47hYvLAf6jN_qdaldBF7Idz7Srr',
+    //     secretKey: 'OeUPQG4QxQvmP8S6Qs6AvNKmCz8NU2ZplnXzJLZa',
+    //     bucket: 'test-editor001'
 
     ctx.app.component("Demo", VPDemo)
   }

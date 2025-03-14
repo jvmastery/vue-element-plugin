@@ -23,10 +23,10 @@
       "baseUrl": ".",
       // 模块名到基于 baseUrl的路径映射的列表。
       "paths": {
-          "@f-ui/*": ["packages/*"],
-          "@/*": ["packages/*"]
+        "@/*": ["packages/*"],
+        "@f-ui/*": ["packages/*"]
       }
   },
-  "include": ["packages", "docs/**/*.vue", "global.d.ts"],
+  "include": ["packages", "docs/**/*.vue", "global.d.ts", "packages/**/*.ts", "packages/**/*.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
