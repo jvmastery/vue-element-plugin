@@ -37,7 +37,16 @@ import image from './file/image.vue'
 
 // 表格
 import table from './table/table.vue'
-
+import deleteColumn from './table/delete-column.vue'
+import deleteRow from './table/delete-row.vue'
+import deleteTable from './table/delete-table.vue'
+import insertColumnAfter from './table/insert-column-after.vue'
+import insertColumnBefore from './table/insert-column-before.vue'
+import insertRowAfter from './table/insert-row-after.vue'
+import insertRowBefore from './table/insert-row-before.vue'
+import mergeCell from './table/merge-cell.vue'
+import splitCell from './table/split-cell.vue'
+import cellProperties from './table/cell-properties.vue'
 
 export default {
     bold,
@@ -74,5 +83,15 @@ export default {
 
     image,
 
-    table
+    table,
+    deleteColumn,
+    deleteRow,
+    deleteTable,
+    insertColumnAfter,
+    insertColumnBefore,
+    insertRowAfter,
+    insertRowBefore,
+    mergeCell,
+    splitCell,
+    cellProperties
 }

@@ -22,6 +22,15 @@
 .vp-doc table {
     width: 100%;
     display: inline-table;
+
+}
+
+.editor__container {
+    table {
+        tr:nth-child(2n) {
+            background-color: unset;
+        }
+    }
 }
 
 #nprogress {

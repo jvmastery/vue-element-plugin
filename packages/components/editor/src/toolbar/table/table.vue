@@ -5,6 +5,7 @@ import { EditorInstanceSymbol } from '../../editor'
 
 const editor = inject(EditorInstanceSymbol)
 const buttonRef = ref()
+const popoverRef = ref()
 
 const totalRows = 10
 const totalCols = 10
@@ -47,8 +48,10 @@ const insertTable = () => {
     editor?.value
         ?.chain()
         .focus()
-        .insertTable({ rows: selectedRows.value, cols: selectedCols.value, withHeaderRow: true })
+        .insertTable({ rows: selectedRows.value, cols: selectedCols.value })
         .run()
+        popoverRef.value.hide()    
+
 }
 </script>
 
@@ -80,18 +83,19 @@ const insertTable = () => {
                     ></div>
                 </div>
             </div>
-            <div class="properties">
-                <div>
+            <!-- <div class="properties">
+                <el-row>
+                    <div>表格属性</div>
                     <div>
-                        行数:
+                        行数
                         <el-input-number v-model="selectedRows" controls-position="right" />
-                    </div>
-                    <div>
+                    </el-row>
+                    <el-row>
                         列数:
                         <el-input-number v-model="selectedCols" controls-position="right" />
-                    </div>
-                </div>
-            </div>
+                    </el-row>
+                </el-row>
+            </div> -->
         </div>
     </el-popover>
 </template>

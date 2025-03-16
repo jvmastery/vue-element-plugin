@@ -62,7 +62,7 @@ const isActive = computed(() => {
 
 <style lang="scss" scoped>
 .toolbar-item {
-    margin: 1px;
+    margin: 2px 1px;
     height: 20px;
 
     .button-body {

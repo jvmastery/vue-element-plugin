@@ -39,7 +39,16 @@ const showTools = [
     'link',
     'unlink',
     'image',
-    'table'
+    'table',
+    'deleteTable',
+    'insertRowBefore',
+    'insertRowAfter',
+    'deleteRow',
+    'insertColumnBefore',
+    'insertColumnAfter',
+    'deleteColumn',
+    'mergeCell',
+    'splitCell'
 ]
 </script>
 
@@ -57,5 +66,7 @@ const showTools = [
 .toolbar-content {
     display: flex;
     align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 </style>
