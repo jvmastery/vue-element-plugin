@@ -32,14 +32,18 @@ export default {
     // 全局注册基础组件
     ctx.app.use(Fui, {
       request: axios.create({
-        baseURL: 'http://localhost:8080',
+        baseURL: '/api',
         timeout: 5000
       }),
       uploadConfig: {
         rootPath: 'upload',
+        type: 'qiniu',
         accessKey: 'oscRVRGynjjHn47hYvLAf6jN_qdaldBF7Idz7Srr',
         secretKey: 'OeUPQG4QxQvmP8S6Qs6AvNKmCz8NU2ZplnXzJLZa',
-        bucket: 'test-editor001'
+        bucket: 'test-editor001',
+        tokenFormtter: result => {
+          return result.data
+        }
       }
     })
     // setAxios(axios)

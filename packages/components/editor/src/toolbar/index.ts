@@ -47,6 +47,7 @@ import insertRowBefore from './table/insert-row-before.vue'
 import mergeCell from './table/merge-cell.vue'
 import splitCell from './table/split-cell.vue'
 import cellProperties from './table/cell-properties.vue'
+import { DefineComponent } from 'vue'
 
 export default {
     bold,
@@ -94,4 +95,4 @@ export default {
     mergeCell,
     splitCell,
     cellProperties
-}
+} as Record<string, DefineComponent<any, any, any>>

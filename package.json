@@ -1,6 +1,6 @@
 {
   "name": "@jvmaster/f-ui",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "基于element-plus二次封装基础组件库",
   "main": "dist/f-ui.umd.js",
   "module": "dist/f-ui.es.js",
@@ -11,7 +11,7 @@
     "typings",
     "global.d.ts"
   ],
-  "private": true,
+  "private": false,
   "scripts": {
     "build": "vite build",
     "docs:build": "vitepress build docs",
@@ -31,10 +31,16 @@
   "author": "jvmaster",
   "license": "MIT",
   "peerDependencies": {
-    "element-plus": "^2.8.6"
+    "element-plus": "^2.9.6"
   },
   "dependencies": {
+    "@tiptap-pro/extension-drag-handle": "^2.17.5",
+    "@tiptap-pro/extension-drag-handle-vue-3": "^2.17.5",
+    "@tiptap-pro/extension-mathematics": "^2.17.5",
+    "@tiptap-pro/extension-node-range": "^2.17.5",
+    "@tiptap-pro/extension-table-of-contents": "^2.17.5",
     "@tiptap/core": "^2.11.5",
+    "@tiptap/extension-bubble-menu": "^2.11.5",
     "@tiptap/extension-bullet-list": "^2.11.5",
     "@tiptap/extension-character-count": "^2.11.5",
     "@tiptap/extension-code-block": "^2.11.5",
@@ -69,10 +75,15 @@
     "@tiptap/pm": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
     "@tiptap/vue-3": "^2.11.5",
-    "element-plus": "^2.9.5",
+    "element-plus": "^2.9.6",
     "highlight.js": "^11.11.1",
+    "katex": "^0.16.21",
     "lowlight": "^3.3.0",
-    "vue": "^3.5.13"
+    "qiniu-js": "4.0.0-beta.6",
+    "vue": "^3.5.13",
+    "y-prosemirror": "^1.2.17",
+    "y-protocols": "^1.0.6",
+    "yjs": "^13.6.24"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -81,15 +92,13 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@vueuse/core": "^12.7.0",
     "axios": "^1.7.9",
-    "eslint": "^9.21.0",
-    "eslint-config-prettier": "^10.0.1",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.3",
-    "eslint-plugin-vue": "^9.32.0",
+    "eslint-plugin-vue": "^10.0.0",
     "markdown-it-container": "^4.0.0",
     "normalize.css": "^8.0.1",
     "prettier": "^3.5.2",
-    "qiniu": "^7.14.0",
-    "qiniu-js": "4.0.0-beta.6",
     "sass": "^1.85.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1",

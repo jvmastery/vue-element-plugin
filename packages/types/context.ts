@@ -3,11 +3,22 @@
  */
 
 import { AxiosInstance } from "axios"
+import { UploadTokenResponse } from "./upload"
 
 /**
  * 上传配置
  */
 export interface UploadConfig {
+    /**
+     * 文件上传类型
+     * direct： 通过接口传到服务端，默认
+     * qiniu： 上传到七牛云oss
+     */
+    type?: 'direct' | 'qiniu'
+    /**
+     * 服务端接口文件地址
+     */
+    url?: string
     /**
      * 指定文件上传地址前缀
      */
@@ -21,6 +32,16 @@ export interface UploadConfig {
      * 设置服务端token的提供url地址
      */
     tokenProviderUrl?: string
+    /**
+     * 对服务端提供的token进行格式化处理
+     * @param any 
+     * @returns 
+     */
+    tokenFormtter?: (...args: any[]) => UploadTokenResponse
+    /**
+     * 请求域名前缀
+     */
+    host?: string,
     /**
      * 获取授权的accessKey。为了安全，最好使用tokenProviderUrl从服务端进行获取
      */

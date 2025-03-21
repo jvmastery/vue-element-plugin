@@ -1,8 +1,7 @@
-import { inject, type App } from 'vue'
+import { type App } from 'vue'
 import components from './component'
-import type { AxiosInstance } from 'axios'
-import { PluginContext } from './constants'
 import { provideGlobalConfig } from './hooks/use-global-config'
+import { PluginContext } from './types'
 
 /**
  * vue插件

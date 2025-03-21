@@ -1,9 +1,9 @@
 import {
     configContextProvideKey,
-    PluginContext,
     requestInstanceProvideKey,
     uploadConfigProvideKey
 } from '@/constants'
+import { PluginContext } from '@/types'
 import { keysOf } from '@/utils'
 import { App, computed, getCurrentInstance, inject, provide, Ref, ref, unref } from 'vue'
 

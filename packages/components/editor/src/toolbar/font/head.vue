@@ -2,7 +2,7 @@
 import { computed, inject } from 'vue'
 import ToolbarItem from '../toolbar-item.vue'
 import { EditorInstanceSymbol } from '../../editor'
-import FSelect from '@f-ui/components/select'
+import FSelect from '@/components/select'
 import { Level } from '@tiptap/extension-heading'
 
 const options = [

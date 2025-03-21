@@ -2,7 +2,7 @@
 import ToolbarItem from '../toolbar-item.vue'
 import { EditorInstanceSymbol } from '../../editor'
 import { inject, ref } from 'vue'
-import FForm from '@f-ui/components/form'
+import FForm from '@/components/form'
 
 const editor = inject(EditorInstanceSymbol)
 const dialogVisible = ref(false)

@@ -1,7 +1,5 @@
-import { inject } from "vue";
-import { AxiosInstance } from "axios";
-import { requestInstanceProvideKey } from "@/constants";
 import { AnyObject } from "@/types";
+import { useGlobalConfig } from "../use-global-config";
 
 /**
  * 请求配置
@@ -15,11 +13,21 @@ export interface RequestOptions {
     /**
      * 请求参数
      */
-    params?: any[],
+    params?: AnyObject,
     /**
      * 请求方法
      */
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
+    /**
+     * 请求头信息
+     */
+    headers?: AnyObject
+    /**
+     * 文件上传过程
+     * @param args  回调参数
+     * @returns 
+     */
+    onUploadProgress?: (...args: any[]) => any
 }
 
 /**
@@ -28,16 +36,17 @@ export interface RequestOptions {
  * @param options 请求配置参数
  */
 export const useRequest = (url: string, options: RequestOptions = {}): Promise<any> => {
-    const { params = [], method = 'GET'} = options
-    const request = inject<AxiosInstance>(requestInstanceProvideKey)
+    const { params = {}, method = 'GET'} = options
+    const request = useGlobalConfig('request')
     
-    if (request == undefined) {
+    if (request.value == undefined) {
         console.error('未配置请求库')
         return Promise.reject('未配置请求库')
     }
 
     // 发送请求数据
     const requestConfig: AnyObject = {
+        ...options,
         url: url,
         method: method
     }
@@ -48,6 +57,6 @@ export const useRequest = (url: string, options: RequestOptions = {}): Promise<a
         requestConfig.data = params
     }
 
-    return request.request(requestConfig)
+    return request.value.request(requestConfig)
 }
 

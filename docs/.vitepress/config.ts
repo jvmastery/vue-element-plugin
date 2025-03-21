@@ -80,16 +80,32 @@ export default defineConfig({
         config: md => mdPlugin(md)
     },
     vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    api: 'modern'
+                }
+            }
+        },
         plugins: [
             nodePolyfills({
                 include: ['crypto', 'util', 'stream']
-            })
+            }) as any
         ],
         resolve: {
             alias: {
                 '@': path.resolve(__dirname, '../../packages'),
                 '@f-ui': path.resolve(__dirname, '../../packages'),
                 os: 'os-browserify/browser'
+            }
+        },
+        server: {
+            proxy: {
+                '/api': {
+                    target: 'http://localhost:8080',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/api/, '')
+                }
             }
         }
     }

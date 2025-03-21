@@ -60,11 +60,20 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
                 os: 'os-browserify/browser'
             }
         },
+        server: {
+            proxy: {
+                '/api': {
+                    target: 'http://localhost:8080',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/api/, '')
+                }
+            }
+        },
         build: {
             lib: {
                 entry: resolve(__dirname, './packages/index.ts'),
                 name: 'f-ui',
-                fileName: format => `vue-element-plugin.${format}.js`
+                fileName: format => `f-ui.${format}.js`
             },
             rollupOptions: {
                 // https://rollupjs.org/configuration-options/
