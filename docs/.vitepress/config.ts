@@ -96,10 +96,12 @@ export default defineConfig({
             alias: {
                 '@': path.resolve(__dirname, '../../packages'),
                 '@f-ui': path.resolve(__dirname, '../../packages'),
+                'element-plus': path.resolve(__dirname, '../../node_modules/element-plus'),
                 os: 'os-browserify/browser'
             }
         },
         server: {
+            port: 5170,
             proxy: {
                 '/api': {
                     target: 'http://localhost:8080',

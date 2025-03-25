@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, PropType } from 'vue'
-import type { FormField } from './form'
+import { loadComponent, type FormField } from './form'
+import { AnyObject } from '@/types'
 
 defineOptions({
     name: 'FForm'
@@ -60,7 +61,7 @@ const getFormItemWidth = (field: FormField) => {
  */
 const computedFields = computed(() => {
     return props.fields?.map(field => {
-        const { name, label, type, vif, rules, attrs, ...others } = field; 
+        const { name, label, type, vif, rules, attrs, ...others } = field
 
         const fieldOptions = {
             // 将一些组件外部使用属性隔离开，其他的属性传递给组件
@@ -71,29 +72,12 @@ const computedFields = computed(() => {
             },
             ...{
                 style: getFormItemWidth(field),
-                componentName: getComponentName(field.type)
+                componentInstance: loadComponent(type)
             }
         }
         return fieldOptions
     })
 })
-
-/**
- * 获取组件的名称
- * @param type 类型
- */
-const getComponentName = (type: String | undefined) => {
-    if (type == undefined) {
-        return 'el-input'
-    }
-
-    if (type == 'radio' || type == 'checkbox') {
-        return 'f-' + type
-    }
-
-    return 'el-' + type
-}
-
 </script>
 <template>
     <el-form :model="formData" :label-width="labelWidth" class="form__wrapper" v-bind="$attrs" :rules="rules">
@@ -105,7 +89,7 @@ const getComponentName = (type: String | undefined) => {
                     </slot>
                 </template>
                 <slot :name="field.name">
-                    <component :is="field.componentName" v-model="formData[field.name]" v-bind="field.attrs"/>
+                    <component :is="field.componentInstance" v-model="formData[field.name]" v-bind="field.attrs"/>
                 </slot>
             </el-form-item>
         </template>

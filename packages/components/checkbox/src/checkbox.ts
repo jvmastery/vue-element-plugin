@@ -1,3 +1,4 @@
+import { AnyObject } from '@/types'
 import type { ExtractPropTypes, PropType } from 'vue'
 
 /**

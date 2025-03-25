@@ -61,7 +61,6 @@ const insertTable = () => {
         ref="buttonRef"
         title="插入表格"
         icon-position="-580px -20px"
-        @click=""
     ></ToolbarItem>
 
     <el-popover
@@ -74,28 +73,15 @@ const insertTable = () => {
     >
         <div class="table-selector">
             <div class="grid" @mousemove="selectArea" @mouseleave="leavegrid" @click="insertTable">
-                <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="row">
+                <div v-for="(_, rowIndex) in rows" :key="rowIndex" class="row">
                     <div
-                        v-for="(col, colIndex) in cols"
+                        v-for="(_, colIndex) in cols"
                         :key="colIndex"
                         class="cell"
                         :class="{ selected: rowIndex < selectedRows && colIndex < selectedCols }"
                     ></div>
                 </div>
             </div>
-            <!-- <div class="properties">
-                <el-row>
-                    <div>表格属性</div>
-                    <div>
-                        行数
-                        <el-input-number v-model="selectedRows" controls-position="right" />
-                    </el-row>
-                    <el-row>
-                        列数:
-                        <el-input-number v-model="selectedCols" controls-position="right" />
-                    </el-row>
-                </el-row>
-            </div> -->
         </div>
     </el-popover>
 </template>

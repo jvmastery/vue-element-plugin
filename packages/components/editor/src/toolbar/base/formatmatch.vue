@@ -3,6 +3,7 @@
 import { inject, ref } from 'vue'
 import ToolbarItem from '../toolbar-item.vue'
 import { EditorInstanceSymbol } from '../../editor'
+import { AnyObject } from '@/types'
 
 interface Options {
     [key: string]: Record<string, any>

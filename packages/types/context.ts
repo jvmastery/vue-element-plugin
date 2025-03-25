@@ -67,7 +67,6 @@ export interface PluginContext {
     requestInterceptors?: ((config: any) => any)[]
     // 响应拦截器
     responseInterceptors?: ((response: any) => any)[]
-
     // 请求配置信息
     uploadConfig?: UploadConfig
 }

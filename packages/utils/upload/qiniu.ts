@@ -13,11 +13,7 @@ import { useGlobalConfig, useRequest } from '@/hooks'
 import { ElMessage } from 'element-plus'
 import { UploadOptions, UploadConfig as CustomerUploadConfig } from '@/types'
 
-export enum Status {
-    Ready,
-    Processing,
-    Finished
-}
+export type Status = 'Ready' | 'Processing' | 'Finished'
 
 function base64UrlSafeEncode(target: string): string {
     return target.replace(/\//g, '_').replace(/\+/g, '-')
@@ -76,7 +72,7 @@ export const qiniuUpload = (file: File, options: UploadOptions = {
     forceMultipart: false
 }) => {
     const uploadOptions = useGlobalConfig('uploadConfig')
-    const status = ref(Status.Ready)
+    const status = ref('Ready')
     const uploadTask = ref<UploadTask>()
     const process = ref<Partial<Progress>>()
     const error = ref()
@@ -132,7 +128,7 @@ export const qiniuUpload = (file: File, options: UploadOptions = {
 
         // 设置进度回调函数
         newUploadTask.onProgress(progress => {
-            status.value = Status.Processing
+            status.value = 'Processing'
             process.value = { ...progress } as any
             if (options.onProgress) {
                 options.onProgress({
@@ -143,7 +139,7 @@ export const qiniuUpload = (file: File, options: UploadOptions = {
         })
 
         newUploadTask.onError(errorInfo => {
-            status.value = Status.Finished
+            status.value = 'Finished'
             error.value = errorInfo
             ElMessage.error('文件上传失败：' + errorInfo?.message)
             if (options.onError) {
@@ -152,7 +148,7 @@ export const qiniuUpload = (file: File, options: UploadOptions = {
         })
 
         newUploadTask.onComplete(result => {
-            status.value = Status.Finished
+            status.value = 'Finished'
             const resultJson = result ? JSON.parse(result) : {}
             let path = resultJson.key ?? fileUploadPath
 

@@ -2,6 +2,8 @@
 import { computed, ref, watchEffect } from 'vue'
 import { getRequest } from '@/axiosInstance'
 import { checkboxProps } from './checkbox'
+import { AnyObject } from '@/types'
+import { ElCheckbox, ElCheckboxButton } from 'element-plus'
 
 defineOptions({
     name: 'FCheckbox'
@@ -39,7 +41,7 @@ const checkboxOptions = computed(() => {
 
 // 确认复选框样式
 const checkType = computed(() => {
-    return props.type == 'check' ? 'el-checkbox' : 'el-checkbox-button'
+    return props.type == 'check' ? ElCheckbox : ElCheckboxButton
 })
 
 </script>

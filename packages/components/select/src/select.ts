@@ -1,3 +1,4 @@
+import { AnyObject } from '@/types'
 import { ExtractPropTypes, PropType } from 'vue'
 
 export const selectProps = {

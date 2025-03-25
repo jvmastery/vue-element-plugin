@@ -3,6 +3,7 @@ import { computed, ref, watch, watchEffect, useSlots } from 'vue'
 import { getRequest } from '@/axiosInstance'
 import type { CheckboxValueType } from 'element-plus'
 import { selectProps } from './select'
+import { AnyObject } from '@/types'
 
 defineOptions({
     name: 'FSelect'

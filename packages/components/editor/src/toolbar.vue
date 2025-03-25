@@ -53,50 +53,6 @@ withDefaults(
         ]
     }
 )
-
-const showTools = [
-    'undo',
-    'redo',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'subscript',
-    'superscript',
-    'removeformat',
-    'formatmatch',
-    'color',
-    'backgroudColor',
-    'orderList',
-    'bulletList',
-    'selectall',
-    'cleardoc',
-    'head',
-    'fontFamily',
-    'fontSize',
-    'directionLtr',
-    'directionRtl',
-    'indent',
-    'justifyLeft',
-    'justifyCenter',
-    'justifyRight',
-    'justifyJustify',
-    'uppercase',
-    'lowercase',
-    'link',
-    'unlink',
-    'image',
-    'table',
-    'deleteTable',
-    'insertRowBefore',
-    'insertRowAfter',
-    'deleteRow',
-    'insertColumnBefore',
-    'insertColumnAfter',
-    'deleteColumn',
-    'mergeCell',
-    'splitCell'
-]
 </script>
 
 <template>

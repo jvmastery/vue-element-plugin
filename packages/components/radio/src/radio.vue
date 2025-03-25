@@ -2,6 +2,8 @@
 import { computed, ref, watchEffect } from 'vue'
 import { getRequest } from '@/axiosInstance'
 import { radioProps } from './radio'
+import { AnyObject } from '@/types'
+import { ElRadio, ElRadioGroup } from 'element-plus'
 
 defineOptions({
     name: 'FRadio'
@@ -39,7 +41,7 @@ const radioOptions = computed(() => {
 
 // 确认复选框样式
 const styleType = computed(() => {
-    return props.type == 'check' ? 'el-radio' : 'el-radio-button'
+    return props.type == 'check' ? ElRadio : ElRadioGroup
 })
 
 </script>

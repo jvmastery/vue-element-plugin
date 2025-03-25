@@ -1,9 +1,9 @@
 /**
  * 定义全局注入的key
  */
+import { PluginContext, UploadConfig } from "@/types"
 import { AxiosInstance } from "axios"
 import { InjectionKey, Ref } from "vue"
-import { PluginContext, UploadConfig } from "./type"
 
 /**
  * 请求注入key
