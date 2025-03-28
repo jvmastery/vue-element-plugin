@@ -7,7 +7,7 @@ export default defineConfig({
     title: '基础组件文档',
     description: '基于Element-plus基础组件封装使用',
     lang: 'cn-ZH',
-    base: '/f-ui/',
+    base: '/',
     lastUpdated: true,
     themeConfig: {
         logo: '/favicon.ico',

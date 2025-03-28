@@ -6,20 +6,18 @@ hero:
   name: "f-ui"
   text: "f-ui组件库"
   tagline: 基于Element-plus二次封装基础组件文档
+  image:
+    src: /img/logo.png
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: 安装指南
+      link: /pages/components
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 组件预览
+      link: /pages/components/radio/
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 基础组件
+    details: 基于Element-plus二次封装
 ---
 

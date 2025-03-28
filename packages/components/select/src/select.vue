@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect, useSlots } from 'vue'
-import { getRequest } from '@/axiosInstance'
 import type { CheckboxValueType } from 'element-plus'
 import { selectProps } from './select'
 import { AnyObject } from '@/types'
+import { useRequest } from '@/hooks'
 
 defineOptions({
     name: 'FSelect'
@@ -26,9 +26,13 @@ const remoteRequestData = ref<AnyObject[]>([])
  * 监听数据请求url，请求数据
  */
 watchEffect(() => {
-    getRequest(props.url, props.method, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
-        remoteRequestData.value.splice(0, remoteRequestData.value.length, ...resp)
-    })
+    if (props.url) {
+        useRequest(props.url, {
+            method: props.method
+        }, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
+            remoteRequestData.value.splice(0, remoteRequestData.value.length, ...resp)
+        })
+    }
 })
 
 // 监听是否已经全选

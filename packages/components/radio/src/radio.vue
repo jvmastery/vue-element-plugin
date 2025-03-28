@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue'
-import { getRequest } from '@/axiosInstance'
 import { radioProps } from './radio'
 import { AnyObject } from '@/types'
 import { ElRadio, ElRadioGroup } from 'element-plus'
+import { useRequest } from '@/hooks'
 
 defineOptions({
     name: 'FRadio'
@@ -20,9 +20,13 @@ const props = defineProps(radioProps)
  * 监听数据请求url，请求数据
  */
 watchEffect(() => {
-    getRequest(props.url, props.method, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
-        remoteRequestData.value.splice(0, remoteRequestData.value.length, ...resp)
-    })
+    if (props.url) {
+        useRequest(props.url, {
+            method: props.method
+        }, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
+            remoteRequestData.value.splice(0, remoteRequestData.value.length, ...resp)
+        })
+    }
 })
 
 // 数据列表

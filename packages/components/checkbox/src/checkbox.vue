@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue'
-import { getRequest } from '@/axiosInstance'
 import { checkboxProps } from './checkbox'
 import { AnyObject } from '@/types'
 import { ElCheckbox, ElCheckboxButton } from 'element-plus'
+import { useRequest } from '@/hooks'
 
 defineOptions({
     name: 'FCheckbox'
@@ -20,9 +20,13 @@ const remoteRequestData = ref<AnyObject[]>([])
  * 监听数据请求url，请求数据
  */
 watchEffect(() => {
-    getRequest(props.url, props.method, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
-        remoteRequestData.value.splice(0, remoteRequestData.value.length, ...resp)
-    })
+    if (props.url) {
+        useRequest(props.url, {
+            method: props.method
+        }, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
+            remoteRequestData.value.splice(0, remoteRequestData.value.length, ...resp)
+        })
+    }
 })
 
 // 数据列表
