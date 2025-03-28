@@ -1,5 +1,6 @@
-import { AnyObject } from "@/types";
-import { useGlobalConfig } from "../use-global-config";
+import { AnyObject } from '@/types'
+import { useGlobalConfig } from '../use-global-config'
+import { Method } from '@/constants'
 
 /**
  * 请求配置
@@ -13,11 +14,11 @@ export interface RequestOptions {
     /**
      * 请求参数
      */
-    params?: AnyObject,
+    params?: AnyObject
     /**
      * 请求方法
      */
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
+    method?: Method
     /**
      * 请求头信息
      */
@@ -25,7 +26,7 @@ export interface RequestOptions {
     /**
      * 文件上传过程
      * @param args  回调参数
-     * @returns 
+     * @returns
      */
     onUploadProgress?: (...args: any[]) => any
 }
@@ -34,11 +35,18 @@ export interface RequestOptions {
  * 发送请求
  * @param url 请求地址
  * @param options 请求配置参数
+ * @param onBeforeLoad 加载前对参数进行处理
+ * @param onLoadSuccess 加载完成后对结果进行处理
  */
-export const useRequest = (url: string, options: RequestOptions = {}): Promise<any> => {
-    const { params = {}, method = 'GET'} = options
+export const useRequest = (
+    url: string,
+    options: RequestOptions = {},
+    onBeforeLoad?: Function | undefined,
+    onLoadSuccess?: Function | undefined
+): Promise<any> => {
+    const { params = {}, method = 'GET' } = options
     const request = useGlobalConfig('request')
-    
+
     if (request.value == undefined) {
         console.error('未配置请求库')
         return Promise.reject('未配置请求库')
@@ -52,11 +60,12 @@ export const useRequest = (url: string, options: RequestOptions = {}): Promise<a
     }
 
     if (method == 'GET') {
-        requestConfig.params = params
+        requestConfig.params = onBeforeLoad ? onBeforeLoad(params) : params
     } else {
-        requestConfig.data = params
+        requestConfig.data = onBeforeLoad ? onBeforeLoad(params) : params
     }
 
-    return request.value.request(requestConfig)
+    return request.value.request(requestConfig).then(resp => {
+        return onLoadSuccess ? onLoadSuccess(resp) : resp
+    })
 }
-

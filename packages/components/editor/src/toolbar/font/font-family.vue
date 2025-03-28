@@ -183,7 +183,7 @@ const computedFamily = (item: any) => {
 </template>
 
 <style lang="scss" scoped>
-::v-deep(.el-select) {
+:deep(.el-select) {
     width: 80px;
 
     .el-select__wrapper {

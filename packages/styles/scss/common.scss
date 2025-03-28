@@ -1,0 +1,13 @@
+// 文字超出省略
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 修改数字设置显示行数 */
+    overflow: hidden;
+}

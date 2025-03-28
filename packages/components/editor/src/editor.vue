@@ -433,10 +433,10 @@ provide(EditorInstanceSymbol, editor)
         }
     }
 
-    ::v-deep(.tiptap) {
+    :deep(.tiptap) {
         margin: 8px;
         padding-inline: 25px;
-        min-height: 100%;
+        min-height: calc(100% - 16px);
 
         p.is-editor-empty:first-child::before {
             color: var(--gray-4);

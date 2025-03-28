@@ -18,6 +18,7 @@ export const useThrottle = (func: (...args: any[]) => any, interval: number, opt
     // 上次执行时间，如果options.leading 为 false，第一次调用不会立即执行
     let previousTime = options.leading ? 0 : Date.now()
     const { start, clear, timeoutHandle } = useTimeout()
+    
     return (...args: any[]) => {
         const now = Date.now()
 

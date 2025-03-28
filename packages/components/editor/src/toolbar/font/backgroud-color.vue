@@ -61,7 +61,7 @@ const changeColor = () => {
 </template>
 
 <style lang="scss" scoped>
-::v-deep(.el-color-picker) {
+:deep(.el-color-picker) {
     height: 20px;
 
     .el-color-picker__trigger {

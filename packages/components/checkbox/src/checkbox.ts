@@ -1,3 +1,4 @@
+import { baseRequestInfo } from '@/components/request'
 import { AnyObject } from '@/types'
 import type { ExtractPropTypes, PropType } from 'vue'
 
@@ -5,6 +6,7 @@ import type { ExtractPropTypes, PropType } from 'vue'
  * 基础类型，和radio相同的配置
  */
 export const checkboxBaseProps = {
+    ...baseRequestInfo,
     /**
      * 样式类型，是复选框还是按钮
      */
@@ -13,26 +15,6 @@ export const checkboxBaseProps = {
         validator: (value: string) => ['check', 'button'].includes(value),
         default: 'check'
     },
-    /**
-     * 数据请求方式
-     */
-    url: String,
-    /**
-     * 数据请求方法
-     */
-    method: {
-        type: String,
-        default: 'GET'
-    },
-    /**
-     * 请求完成后的回调，对返回数据进行处理
-     */
-    onLoadSuccess: Function,
-    /**
-     * 数据请求前的回调，对请求参数进行处理
-     * 返回的是一个json字符串，否则会有问题
-     */
-    onBeforeLoad: Function,
     /**
      * 显示项
      */

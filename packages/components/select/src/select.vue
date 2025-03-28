@@ -11,7 +11,7 @@ defineOptions({
 
 const props = defineProps(selectProps)
 const slots: any = useSlots()
-const selectValue = defineModel({required: true, default: {}})
+const selectValue = defineModel({ required: true })
 
 // 全选功能
 const checkAll = ref(false)
@@ -20,7 +20,7 @@ const indeterminate = ref(false)
 /**
  * 远程请求数据
  */
- const remoteRequestData = ref<AnyObject[]>([])
+const remoteRequestData = ref<AnyObject[]>([])
 
 /**
  * 监听数据请求url，请求数据
@@ -33,15 +33,15 @@ watchEffect(() => {
 
 // 监听是否已经全选
 watch(selectValue, (val: any) => {
-  if (val.length === 0) {
-    checkAll.value = false
-    indeterminate.value = false
-  } else if (val.length === selectOptions.value.length) {
-    checkAll.value = true
-    indeterminate.value = false
-  } else {
-    indeterminate.value = true
-  }
+    if (val == undefined || val.length === 0) {
+        checkAll.value = false
+        indeterminate.value = false
+    } else if (val.length === selectOptions.value.length) {
+        checkAll.value = true
+        indeterminate.value = false
+    } else {
+        indeterminate.value = true
+    }
 })
 
 // 数据列表
@@ -60,15 +60,15 @@ const selectOptions = computed(() => {
 
 /**
  * 全选
- * @param val 
+ * @param val
  */
 const handleCheckAll = (val: CheckboxValueType) => {
-  indeterminate.value = false
-  if (val) {
-    selectValue.value = selectOptions.value.map((_) => _.value)
-  } else {
-    selectValue.value = []
-  }
+    indeterminate.value = false
+    if (val) {
+        selectValue.value = selectOptions.value.map(_ => _.value)
+    } else {
+        selectValue.value = []
+    }
 }
 
 /**
@@ -76,26 +76,22 @@ const handleCheckAll = (val: CheckboxValueType) => {
  */
 const optionStyles = (option: any, index: number) => {
     if (props.styleFormatter) {
-        return {...props.styleFormatter(option, index)}
+        return { ...props.styleFormatter(option, index) }
     }
 
-    return;
+    return
 }
 </script>
 
 <template>
-    <el-select v-model="selectValue" v-bind="$attrs" :clearable="clearable">
+    <el-select v-model="selectValue" v-bind="$attrs" style="width: 200px" :clearable="clearable">
         <template v-if="slots.header" #header>
             <slot name="header" :options="selectOptions" />
         </template>
 
         <!--  全选功能  -->
         <template v-if="!slots.header && selectAll" #header>
-            <el-checkbox
-                v-model="checkAll"
-                :indeterminate="indeterminate"
-                @change="handleCheckAll"
-            >
+            <el-checkbox v-model="checkAll" :indeterminate="indeterminate" @change="handleCheckAll">
                 全选
             </el-checkbox>
         </template>
@@ -103,7 +99,7 @@ const optionStyles = (option: any, index: number) => {
         <slot :options="selectOptions">
             <el-option
                 v-for="(item, index) in selectOptions"
-                :class="[ useValueClass ? item[value] : '' ]"
+                :class="[useValueClass ? item[value] : '']"
                 :style="optionStyles(item, index)"
                 :key="item[value]"
                 :label="item[label]"
