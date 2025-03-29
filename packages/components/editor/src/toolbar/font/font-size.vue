@@ -82,7 +82,7 @@ const computedStyle = (item: any) => {
 
 <style lang="scss" scoped>
 :deep(.el-select) {
-    width: 80px;
+    width: 80px !important;
 
     .el-select__wrapper {
         line-height: 18px;
