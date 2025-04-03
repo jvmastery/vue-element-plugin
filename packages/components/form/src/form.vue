@@ -79,23 +79,29 @@ const getFirstError = (record: any): string => {
  * 防抖提交
  */
 const submitFormThrottle = useThrottle(() => {
-    formRef.value?.validate(async (valid, invalidFields) => {
-        if (!valid) {
-            // 验证失败
-            ElMessage.warning(getFirstError(invalidFields))
-            sumitLoading.value = false
-            return
-        }
+    try {
+        formRef.value?.validate(async (valid, invalidFields) => {
+            if (!valid) {
+                // 验证失败
+                ElMessage.warning(getFirstError(invalidFields))
+                sumitLoading.value = false
+                return
+            }
 
-        // 真实处理，可以进行自定义处理，也可以直接通过接口进行保存
-        if (props.onConfirm) {
-            await props.onConfirm(formData.value)
-            sumitLoading.value = false
-            return
-        }
+            // 真实处理，可以进行自定义处理，也可以直接通过接口进行保存
+            if (props.onConfirm) {
+                try {
+                    await props.onConfirm(formData.value)
+                } catch(e) {}
+                sumitLoading.value = false
+                return
+            }
 
-        // 使用远程接口
-    })
+            // 使用远程接口
+        })
+    } catch(e) {
+        sumitLoading.value = false
+    }
 }, 1000)
 
 /**

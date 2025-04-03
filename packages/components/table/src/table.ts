@@ -1,7 +1,33 @@
 import { baseRequestInfo } from "@/components/request"
 import { AnyObject } from "@/types"
-import { TableColumnCtx } from "element-plus"
+import { ButtonProps, TableColumnCtx } from "element-plus"
 import { ExtractPropTypes, PropType } from "vue"
+
+/**
+ * 按钮点击事件传输的参数
+ */
+export interface OptionData {
+    /**
+     * 当前行数据
+     */
+    row?: AnyObject
+    /**
+     * 列信息
+     */
+    column?: AnyObject
+    /**
+     * 当前行号
+     */
+    $index?: Number
+    /**
+     * 按钮信息
+     */
+    options: ButtonOption
+    /**
+     * 选中行数据
+     */
+    selections: AnyObject[]
+}
 
 /**
  * 表单项配置
@@ -15,6 +41,14 @@ export interface TableColumn extends TableColumnCtx<any> {
      * 数据类型，对内容进行结构处理
      */
     type: string
+    /**
+     * 是否显示列
+     * 有些可能只是作为查询条件存在，没有实际意义
+     */
+    show: {
+        type: Boolean,
+        default: true
+    },
     /**
      * 定义字段分隔符，表名这是一个字符串数组拼接而成
      */
@@ -43,6 +77,24 @@ export interface TableColumn extends TableColumnCtx<any> {
      * 子栏目，设置多级表头时用
      */
     children: Array<TableColumn>
+}
+
+/**
+ * 操作按钮
+ */
+export interface ButtonOption extends ButtonProps {
+    /**
+     * 按钮中的文字
+     */
+    name?: string
+    /**
+     * 是否需要确认
+     */
+    confirm?: boolean | number,
+    /**
+     * 点击事件
+     */
+    click?: Function
 }
 
 /**
@@ -114,6 +166,32 @@ export const tableProps = {
     pageLayout: {
         type: String,
         default: 'sizes, prev, pager, next, jumper'
+    },
+    /**
+     * 操作栏名称
+     */
+    optionsColumnName: {
+        type: String,
+        default: '操作'
+    },
+    /**
+     * 操作栏宽度
+     */
+    optionsColumnWidth: {
+        type: String,
+        default: '130px'
+    },
+    /**
+     * 操作按钮
+     */
+    optionsButtons: {
+        type: Array as PropType<ButtonOption[]>
+    },
+    /**
+     * 工具类按钮
+     */
+    toolButtons: {
+        type: Array as PropType<ButtonOption[]>
     }
 }
 

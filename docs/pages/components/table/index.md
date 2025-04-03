@@ -23,6 +23,40 @@ components/table/remote
 components/table/empty
 :::
 
+## 定义按钮
+按钮分为工具类按钮和操作栏按钮。使用`optionsButtons`和`toolButtons`来定义，按钮属性继承于element `Button` 按钮属性，然后通过`name`字段来定义按钮的名称，同时可通过`click`方法来定义按钮点击时触发的事件。传输数据格式：
+
+```
+interface OptionData {
+    /**
+     * 当前行数据
+     */
+    row?: AnyObject
+    /**
+     * 列信息
+     */
+    column?: AnyObject
+    /**
+     * 当前行号
+     */
+    $index?: Number
+    /**
+     * 按钮信息
+     */
+    options: ButtonOption
+    /**
+     * 选中行数据
+     */
+    selections: AnyObject[]
+}
+```
+如果没有定义`click`属性，则可以通过`@buttonClick`来监听整体按钮点击事件。
+
+::: raw
+:::demo
+components/table/buttons
+:::
+
 ## 固定列
 固定列需要使用在对应的column上设置`fixed`属性，当`fixed=true`时，列将被固定在左侧；同时，也接受传入字符串，left 或 right，表示左边固定还是右边固定。
 ::: raw

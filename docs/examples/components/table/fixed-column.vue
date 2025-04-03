@@ -16,8 +16,7 @@ const columns = [
     prop: 'opetion',
     width: 150,
     fixed: 'right'
-  }
-  ,
+  },
   {
     label: '地址',
     prop: 'address',
