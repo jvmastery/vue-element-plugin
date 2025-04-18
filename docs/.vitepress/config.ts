@@ -58,7 +58,8 @@ export default defineConfig({
                     text: '复杂组件',
                     items: [
                         { text: '表单组件', link: '/pages/components/form/' },
-                        { text: '列表组件', link: '/pages/components/table/' }
+                        { text: '列表组件', link: '/pages/components/table/' },
+                        { text: '弹窗组件', link: '/pages/components/dialog/' }
                     ]
                 }
             ],

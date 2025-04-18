@@ -18,8 +18,9 @@ import {
     ElTransfer,
     ElUpload
 } from 'element-plus'
-import { definePropType, iconPropType } from '@/utils'
+import { iconPropType } from '@/utils'
 import { baseRequestInfo } from '@/components/request'
+import { Method } from '@/constants'
 
 /**
  * 表单项
@@ -129,6 +130,10 @@ export const loadComponent = (type: string = 'input') => {
 
 export const formProps = {
     ...baseRequestInfo,
+    method: {
+        type: String as PropType<Method>,
+        default: 'POST'
+    },
     /**
      * 默认每行占据field数量
      */
@@ -255,8 +260,14 @@ export const formProps = {
     confirmButtonIcon: {
         type: iconPropType
     },
+    /**
+     * 点击确认按钮事件
+     */
     onConfirm: {
         type: Function
     },
+    /**
+     * 表单校验规则
+     */
     rules: {} as any
 }

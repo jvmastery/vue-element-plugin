@@ -16,7 +16,10 @@ import viteCompression from 'vite-plugin-compression'
 // 设置别名
 import { resolve } from 'path'
 
-const chunk_packages = ['tiptap', 'highlight']
+const chunk_packages = [{
+    name: 'tiptap',
+    rename: 'editor'
+}, 'highlight']
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
@@ -111,8 +114,9 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
                         // 代码分割，将 vue、element-plus、node_modules 单独拆分
                         if (id.includes('node_modules')) {
                             for (const module of chunk_packages) {
-                                if (id.includes(module)) {
-                                    return module
+                                const isString = typeof module === 'string'
+                                if (id.includes(isString ? module : module.name)) {
+                                    return isString ? module : module.rename
                                 }
                             }
                         }

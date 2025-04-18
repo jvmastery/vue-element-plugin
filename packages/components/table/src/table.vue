@@ -346,6 +346,10 @@ defineExpose({
 @use '@/styles/scss/index.scss';
 
 .table__container {
+    .form__wrapper {
+        padding-top: 0;
+    }
+
     .tools {
         margin-bottom: 5px;
     }

@@ -1,5 +1,5 @@
 // 渲染el-table-column
-import { defineComponent, h, PropType, useSlots, VNode } from 'vue'
+import { defineComponent, h, PropType, VNode } from 'vue'
 import { ElImage, ElTableColumn, ElTag } from 'element-plus'
 import { TableColumn } from './table'
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { formProps, loadComponent, type FormField } from './form'
 import { AnyObject } from '@/types'
 import { ElForm, ElMessage, FormInstance } from 'element-plus'
-import { useThrottle } from '@/hooks'
+import { useRequest, useThrottle } from '@/hooks'
 
 defineOptions({
     name: 'FForm'
@@ -25,9 +25,9 @@ const getFormItemWidth = (field: FormField) => {
 
     // gap = 20px
     if (props.labelPostion === 'top') {
-        return `flex: 0 1 calc((${100 / fieldColspan}% - 10px - 20px)); margin-right:10px;`
+        return `flex: 0 1 calc((${100 / fieldColspan}% - 10px - 20px)); margin-right:10px; min-width: 300px;`
     } else {
-        return `flex: 0 1 calc(${100 / fieldColspan}% - 20px)`
+        return `flex: 0 1 calc(${100 / fieldColspan}% - 20px); min-width: 300px;`
     }
 }
 
@@ -84,20 +84,24 @@ const submitFormThrottle = useThrottle(() => {
             if (!valid) {
                 // 验证失败
                 ElMessage.warning(getFirstError(invalidFields))
-                sumitLoading.value = false
-                return
             }
 
             // 真实处理，可以进行自定义处理，也可以直接通过接口进行保存
-            if (props.onConfirm) {
+            else if (props.onConfirm) {
                 try {
                     await props.onConfirm(formData.value)
                 } catch(e) {}
-                sumitLoading.value = false
-                return
             }
 
             // 使用远程接口
+            else if (props.url) {
+                await useRequest(props.url, {
+                    method: props.method,
+                    params: formData,
+                }, props.onBeforeLoad, props.onLoadSuccess)
+            }
+
+            sumitLoading.value = false
         })
     } catch(e) {
         sumitLoading.value = false
@@ -135,7 +139,7 @@ const reset = () => {
         :model="formData"
         :label-width="labelWidth"
         ref="formRef"
-        :class="[inline ? 'form--inline__wrapper' : 'form__wrapper']"
+        :class="[inline ? 'form--inline__wrapper' : '', 'form__wrapper']"
         v-bind="$attrs"
         :inline="inline"
         scroll-to-error
@@ -198,34 +202,38 @@ const reset = () => {
 </template>
 
 <style lang="scss" scoped>
-.form--inline__wrapper {
-    .submit__wrapper {
-        display: inline-flex;
-        vertical-align: middle;
-        --font-size: 14px;
-        margin-bottom: 18px;
-    }
-}
-
 .form__wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 20px;
-
-    :deep(.el-form-item__label) {
-        padding: 0 12px 0 12px;
-    }
-
-    :deep(.el-form-item__content) {
-        & > * {
-            width: 100% !important;
+    padding-top: 20px;
+    
+    &.form--inline__wrapper {
+        .submit__wrapper {
+            display: inline-flex;
+            vertical-align: middle;
+            --font-size: 14px;
+            margin-bottom: 18px;
         }
     }
 
-    .submit__wrapper {
-        width: 100%;
+    &:not(.form--inline__wrapper) {
         display: flex;
-        justify-content: center;
+        flex-wrap: wrap;
+        column-gap: 20px;
+
+        :deep(.el-form-item__label) {
+            padding: 0 12px 0 12px;
+        }
+
+        :deep(.el-form-item__content) {
+            & > * {
+                width: 100% !important;
+            }
+        }
+
+        .submit__wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
     }
 }
 </style>

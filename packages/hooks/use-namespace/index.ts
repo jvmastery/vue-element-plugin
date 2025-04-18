@@ -5,7 +5,7 @@ import { computed, getCurrentInstance, inject, ref, unref } from 'vue'
 
 import type { InjectionKey, Ref } from 'vue'
 
-export const defaultNamespace = 'el'
+export const defaultNamespace = 'f'
 const statePrefix = 'is-'
 
 const _bem = (

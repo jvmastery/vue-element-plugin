@@ -1,6 +1,17 @@
 // 导出所有组件
-import { FCheckbox, FForm, FMenu, FMenuItem, FRadio, FSelect, FEditor, FTable } from './components'
- 
+import {
+    FCheckbox,
+    FForm,
+    FMenu,
+    FMenuItem,
+    FRadio,
+    FSelect,
+    FEditor,
+    FTable,
+    FDialog,
+    FTeleport
+} from './components'
+
 import { Plugin } from 'vue'
 
 export default [
@@ -11,5 +22,7 @@ export default [
     FRadio,
     FSelect,
     FEditor,
-    FTable
+    FTable,
+    FDialog,
+    FTeleport
 ] as Plugin[]

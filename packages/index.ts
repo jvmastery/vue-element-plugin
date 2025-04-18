@@ -2,6 +2,7 @@ import { type App } from 'vue'
 import components from './component'
 import { provideGlobalConfig } from './hooks/use-global-config'
 import { PluginContext } from './types'
+import { ClickOutside } from 'element-plus'
 
 /**
  * vue插件
@@ -24,6 +25,14 @@ const install = (app: App, options: PluginContext = {}) => {
     }
 
     provideGlobalConfig(options, app, true)
+    installDirective(app)
+}
+
+/**
+ * 注册插件
+ */
+const installDirective = (app: App) => {
+    app.directive('click-outside', ClickOutside)
 }
   
 
