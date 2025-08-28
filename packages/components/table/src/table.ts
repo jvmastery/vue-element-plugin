@@ -18,7 +18,7 @@ export interface OptionData {
     /**
      * 当前行号
      */
-    $index?: Number
+    index?: Number
     /**
      * 按钮信息
      */
@@ -26,7 +26,7 @@ export interface OptionData {
     /**
      * 选中行数据
      */
-    selections: AnyObject[]
+    selections?: AnyObject[]
 }
 
 /**
@@ -41,6 +41,14 @@ export interface TableColumn extends TableColumnCtx<any> {
      * 数据类型，对内容进行结构处理
      */
     type: string
+    /**
+     * 当为编辑表单时，输入框类型
+     */
+    dataType?: string
+    /**
+     * 当为编辑表单时，是否必填
+     */
+    required?: boolean
     /**
      * 是否显示列
      * 有些可能只是作为查询条件存在，没有实际意义
@@ -94,7 +102,24 @@ export interface ButtonOption extends ButtonProps {
     /**
      * 点击事件
      */
-    click?: Function
+    click?: Function,
+    /**
+     * 可以自定义一些其他的参数
+     */
+    [key: string]: any
+}
+
+/**
+ * 请求函数
+ */
+type ReqquestFunction<A, R> = (args: A) => Promise<R>
+
+/**
+ * 分页结果
+ */
+interface PageResult {
+    records: unknown[]
+    total: number
 }
 
 /**
@@ -102,6 +127,13 @@ export interface ButtonOption extends ButtonProps {
  */
 export const tableProps = {
     ...baseRequestInfo,
+    /**
+     * 自定义获取数据
+     * @returns 
+     */
+    onRequest: {
+        type: Function as PropType<ReqquestFunction<Record<string, unknown>, PageResult>>
+    },
     /**
      * 表单第一列的类型
      * 如果设置了selection则显示多选框； 

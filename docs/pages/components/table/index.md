@@ -39,7 +39,7 @@ interface OptionData {
     /**
      * 当前行号
      */
-    $index?: Number
+    index?: Number
     /**
      * 按钮信息
      */
@@ -95,6 +95,12 @@ components/table/sort
 ::: raw
 :::demo
 components/table/search
+:::
+
+## 可编辑列表
+::: raw
+:::demo
+components/table/edit-table
 :::
 
 ## 自定义列

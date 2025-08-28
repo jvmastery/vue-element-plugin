@@ -51,7 +51,10 @@ const computedFields = computed(() => {
             ...{
                 style: getFormItemWidth(field),
                 componentInstance: isComponentInstance ? componentInstance.comp : componentInstance
-            }
+            },
+            rules: field.required
+                ? [{ required: true, message: field.label + '不能为空' }, ...(field.rules || [])]
+                : field.rules
         }
         return fieldOptions
     })
@@ -97,8 +100,10 @@ const submitFormThrottle = useThrottle(() => {
             else if (props.url) {
                 await useRequest(props.url, {
                     method: props.method,
-                    params: formData,
-                }, props.onBeforeLoad, props.onLoadSuccess)
+                    params: formData.value,
+                }, props.onBeforeLoad, props.onLoadSuccess).finally(() => {
+                    sumitLoading.value = false
+                })
             }
 
             sumitLoading.value = false
@@ -128,8 +133,11 @@ const cancel = async () => {
 /**
  * 重置表单信息
  */
-const reset = () => {
+const reset = async () => {
     formRef.value?.resetFields()
+    if (props.onReset) {
+        await props.onReset()
+    }
 }
 
 </script>

@@ -5,6 +5,7 @@ import FForm from './dist/components/form/src/index.vue'
 import FMenu from './dist/components/menu/src/index.vue'
 import FEditor from './dist/components/editor/src/index.vue'
 import FTable from './dist/components/table/src/index.vue'
+import { FEditTable } from './dist/components/edit-table/src/index.vue'
 
 // GlobalComponents for Volar
 declare module 'vue' {
@@ -16,6 +17,7 @@ declare module 'vue' {
         FMenu: typeof FMenu
         FEditor: typeof FEditor
         FTable: typeof FTable
+        FEditTable: typeof FEditTable
     }
 }
 

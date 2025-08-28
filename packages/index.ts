@@ -9,7 +9,10 @@ import { ClickOutside } from 'element-plus'
  * @param app
  */
 const install = (app: App, options: PluginContext = {}) => {
-    components.forEach((c) => app.use(c))
+    if (options.register !== false) {
+        // 不注册全局组件
+        components.forEach((c) => app.use(c))
+    }
 
     if (options.request) {
         // 配置了拦截器
@@ -43,3 +46,4 @@ export default {
 
 export * from '@/components'
 export * from '@/hooks'
+export * from '@/utils'

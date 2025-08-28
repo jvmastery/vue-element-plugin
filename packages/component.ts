@@ -8,6 +8,7 @@ import {
     FSelect,
     FEditor,
     FTable,
+    FEditTable,
     FDialog,
     FTeleport
 } from './components'
@@ -23,6 +24,7 @@ export default [
     FSelect,
     FEditor,
     FTable,
+    FEditTable,
     FDialog,
     FTeleport
 ] as Plugin[]

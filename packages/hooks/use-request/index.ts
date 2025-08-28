@@ -60,9 +60,9 @@ export const useRequest = (
     }
 
     if (method == 'GET') {
-        requestConfig.params = onBeforeLoad ? onBeforeLoad(params) : params
+        requestConfig.params = onBeforeLoad ? onBeforeLoad(params, requestConfig) : params
     } else {
-        requestConfig.data = onBeforeLoad ? onBeforeLoad(params) : params
+        requestConfig.data = onBeforeLoad ? onBeforeLoad(params, requestConfig) : params
     }
 
     return request.value.request(requestConfig).then(resp => {

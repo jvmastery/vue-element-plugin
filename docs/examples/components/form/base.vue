@@ -11,7 +11,8 @@ const fiels: FormField[] = [
     {
         name: 'time',
         label: '出生日期',
-        type: 'date'
+        type: 'date',
+        required: true
     },
     {
         name: 'sex',

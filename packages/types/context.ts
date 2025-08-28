@@ -69,4 +69,8 @@ export interface PluginContext {
     responseInterceptors?: ((response: any) => any)[]
     // 请求配置信息
     uploadConfig?: UploadConfig
+    /**
+     * 注册组件
+     */
+    register?: false
 }
