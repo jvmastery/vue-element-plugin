@@ -49,6 +49,31 @@ const fiels: FormField[] = [
         ]
     },
     {
+        name: 'favoir',
+        label: '爱好1',
+        type: 'cascader',
+        options: [
+            {
+                label: '运动',
+                value: 1,
+                children: [
+                    {
+                        label: '篮球',
+                        value: 10
+                    }
+                ]
+            },
+            {
+                label: '唱歌',
+                value: 0
+            },
+            {
+                label: '旅游',
+                value: 2
+            }
+        ]
+    },
+    {
         name: 'favoir-s',
         label: '爱好',
         type: 'select',

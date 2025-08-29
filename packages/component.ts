@@ -10,7 +10,8 @@ import {
     FTable,
     FEditTable,
     FDialog,
-    FTeleport
+    FTeleport,
+    FCascader
 } from './components'
 
 import { Plugin } from 'vue'
@@ -26,5 +27,6 @@ export default [
     FTable,
     FEditTable,
     FDialog,
-    FTeleport
+    FTeleport,
+    FCascader
 ] as Plugin[]

@@ -1,6 +1,7 @@
 import FCheckbox from './dist/components/checkbox/src/index.vue'
 import FRadio from './dist/components/radio/src/index.vue'
 import FSelect from './dist/components/select/src/index.vue'
+import FCascader from './dist/components/cascader/src/index.vue'
 import FForm from './dist/components/form/src/index.vue'
 import FMenu from './dist/components/menu/src/index.vue'
 import FEditor from './dist/components/editor/src/index.vue'
@@ -18,6 +19,7 @@ declare module 'vue' {
         FEditor: typeof FEditor
         FTable: typeof FTable
         FEditTable: typeof FEditTable
+        FCascader: typeof FCascader
     }
 }
 

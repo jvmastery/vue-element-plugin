@@ -88,7 +88,7 @@ const optionStyles = (option: any, index: number) => {
 </script>
 
 <template>
-    <el-select v-model="selectValue" v-bind="$attrs" style="width: 200px" :clearable="clearable">
+    <el-select v-model="selectValue" filterable v-bind="$attrs" style="width: 200px" :clearable="clearable">
         <template v-if="slots.header" #header>
             <slot name="header" :options="selectOptions" />
         </template>

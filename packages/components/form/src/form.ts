@@ -133,10 +133,12 @@ const typeMapping: Record<string, ReturnType<typeof defineAsyncComponent> | Comp
     // 'upload': defineAsyncComponent(() => import('element-plus/es/components/upload')),
     autocomplete1: ElAutocomplete,
     cascader: {
-        comp: ElCascader,
+        comp: defineAsyncComponent(() => import('@/components/cascader')),
         options: {
             clearable: true,
-            filterable: true
+            filterable: true,
+            emitPath: false,
+            checkStrictly: true
         }
     },
     calendar: ElCalendar,
@@ -155,6 +157,15 @@ const typeMapping: Record<string, ReturnType<typeof defineAsyncComponent> | Comp
         }
     },
     input: ElInput,
+    textarea: {
+        comp: ElInput,
+        options: {
+            type: 'textarea',
+            autosize: {
+                minRows: 5
+            }
+        }
+    },
     'input-number': ElInputNumber,
     'input-tag': ElInputTag,
     mention: ElMention,

@@ -87,7 +87,7 @@ export default defineComponent({
                                 scope.column,
                                 scope.row[prop!],
                                 scope.$index
-                            )
+                            ) ?? ''
                         }
 
                         return scope.row[prop!] ?? ''
