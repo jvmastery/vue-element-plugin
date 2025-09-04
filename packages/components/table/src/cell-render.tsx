@@ -56,6 +56,9 @@ export default defineComponent({
                         { href: scope.row[prop], target: '_blank', style: 'color: blue;' },
                         scope.row[prop]
                     )
+                /**
+                 * 标签
+                 */
                 case 'tag': {
                     const options = getOptions()
                     if (!options) {
@@ -70,6 +73,40 @@ export default defineComponent({
                         }
                     )
                 }
+                /**
+                 * 多个标签构成
+                 */
+                case 'tags': {
+                    if (!column.options) {
+                        return
+                    }
+
+                    // 把字符串分割成数组
+                    const values = (scope.row[prop] ?? '')
+                        .toString()
+                        .split(column.wordSeperator ?? ',')
+                        .map((v: string) => v.trim())
+                        .filter((v: string) => v)
+
+                    // 找出对应的 options
+                    const options = values
+                        .map((value: string) =>
+                            column.options!.find(
+                                optionItem => optionItem[column.optionsValue ?? 'value'] == value
+                            )
+                        )
+                        .filter(Boolean) // 去掉没找到的
+                    if (!options || options.length === 0) {
+                        return null
+                    }
+                    return options.map((opt: any) =>
+                        h(
+                            ElTag,
+                            { type: opt?.type, style: 'margin-right: 5px' },
+                            { default: () => opt[column.optionsLabel ?? 'label'] }
+                        )
+                    )
+                }
                 case 'html': {
                     const value = scope.row[prop]
                     if (!value) {
@@ -82,12 +119,14 @@ export default defineComponent({
                 default:
                     function defaultRenderCell() {
                         if (column && column.formatter) {
-                            return column.formatter(
-                                scope.row,
-                                scope.column,
-                                scope.row[prop!],
-                                scope.$index
-                            ) ?? ''
+                            return (
+                                column.formatter(
+                                    scope.row,
+                                    scope.column,
+                                    scope.row[prop!],
+                                    scope.$index
+                                ) ?? ''
+                            )
                         }
 
                         return scope.row[prop!] ?? ''

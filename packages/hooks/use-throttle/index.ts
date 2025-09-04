@@ -11,7 +11,7 @@ import { useTimeout } from "../use-timeout"
  * @param options leading：是否在延迟开始前调用函数   trailing：是否在延迟开始后调用函数
  * @returns 
  */
-export const useThrottle = (func: (...args: any[]) => any, interval: number, options = {
+export const useThrottle = (func: (...args: any[]) => any, interval: number = 500, options = {
     leading: true,
     trailing: true
 }) => {

@@ -48,8 +48,7 @@ onMounted(() => {
     confirm()
 })
 
-watch(() => props.data, () => {
-    console.error('data发生变化', props.data)
+watch(() => props.data?.length, () => {
     confirm()
 })
 
@@ -261,7 +260,8 @@ const buttonClick = async (options: ButtonOption, row?: any, column?: any, $inde
 
 defineExpose({
     tableInstance,
-    confirm
+    confirm,
+    currentPageData
 })
 </script>
 

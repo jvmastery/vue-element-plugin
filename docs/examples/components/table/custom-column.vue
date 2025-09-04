@@ -60,6 +60,33 @@ const columns = [
         ]
     },
     {
+        label: '多状态',
+        prop: 'statusall',
+        type: 'tags',
+        options: [
+            {
+                label: '正常',
+                value: 0,
+                type: 'primary'
+            },
+            {
+                label: '确认',
+                value: 1,
+                type: 'success'
+            },
+            {
+                label: '待审核',
+                value: 2,
+                type: 'warning'
+            },
+            {
+                label: '拒绝',
+                value: 3,
+                type: 'danger'
+            }
+        ]
+    },
+    {
         label: '地址',
         prop: 'address'
     }
@@ -78,7 +105,8 @@ for (let i = 1; i < 22; i++) {
                       'http://gips1.baidu.com/it/u=3874647369,3220417986&fm=3028&app=3028&f=JPEG&fmt=auto?w=720&h=1280'
                   ]
                 : 'http://gips1.baidu.com/it/u=3874647369,3220417986&fm=3028&app=3028&f=JPEG&fmt=auto?w=720&h=1280',
-        status: i % 4
+        status: i % 4,
+        statusall: '0,1,2'
     })
 }
 </script>

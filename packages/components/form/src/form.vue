@@ -1,20 +1,44 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { formProps, loadComponent, type FormField } from './form'
-import { AnyObject } from '@/types'
+import { AnyObject, ValidateResult } from '@/types'
 import { ElForm, ElMessage, FormInstance } from 'element-plus'
-import { useRequest, useThrottle } from '@/hooks'
+import { useDefineModel, useThrottle } from '@/hooks'
+import { isFunction } from '@/utils'
 
 defineOptions({
     name: 'FForm'
 })
 
+interface ValidateRefType {
+    /**
+     * 组件实例
+     */
+    el: any
+    /**
+     * 字段对象
+     */
+    field: FormField
+}
+
 const props = defineProps(formProps)
 const formRef = ref<FormInstance>()
 const sumitLoading = ref(false)
+const customValidFieldRefs = ref<Map<string, ValidateRefType>>(new Map())
 
 // 表单属性
-const formData: AnyObject = defineModel({  })
+const formData: AnyObject = useDefineModel({})
+
+onMounted(() => {
+    props.fields?.map(field => {
+        if (field.defaultValue) {
+            const componentInstance = loadComponent(field.type)
+            const isComponentInstance = 'comp' in componentInstance
+
+            formData.value[field.name] = isComponentInstance ? componentInstance.formatter(field.defaultValue) : field.defaultValue
+        }
+    })
+})
 
 /**
  * 计算当前field占据的宽度
@@ -38,7 +62,7 @@ const computedFields = computed(() => {
     return props.fields?.map(field => {
         const { name, label, type, vif, rules, attrs, ...others } = field
         const componentInstance = loadComponent(type)
-        const isComponentInstance = 'options' in componentInstance
+        const isComponentInstance = 'comp' in componentInstance
 
         const fieldOptions = {
             // 将一些组件外部使用属性隔离开，其他的属性传递给组件
@@ -52,6 +76,7 @@ const computedFields = computed(() => {
                 style: getFormItemWidth(field),
                 componentInstance: isComponentInstance ? componentInstance.comp : componentInstance
             },
+            validator: isComponentInstance ? (componentInstance.validator ?? false) : false,
             rules: field.required
                 ? [{ required: true, message: field.label + '不能为空' }, ...(field.rules || [])]
                 : field.rules
@@ -62,21 +87,21 @@ const computedFields = computed(() => {
 
 /**
  * 获取第一条错误信息
- * @param record 
+ * @param record
  */
 const getFirstError = (record: any): string => {
-  // 1. 获取所有键（按插入顺序）
-  const keys = Object.keys(record);
-  
-  // 2. 检查是否有键
-  if (keys.length === 0) return '';
-  
-  // 3. 取第一个键对应的错误数组
-  const errors = record[keys[0]];
-  
-  // 4. 检查数组是否有内容
-  return errors?.[0].message; // 使用可选链防止 undefined
-};
+    // 1. 获取所有键（按插入顺序）
+    const keys = Object.keys(record)
+
+    // 2. 检查是否有键
+    if (keys.length === 0) return ''
+
+    // 3. 取第一个键对应的错误数组
+    const errors = record[keys[0]]
+
+    // 4. 检查数组是否有内容
+    return errors?.[0].message // 使用可选链防止 undefined
+}
 
 /**
  * 防抖提交
@@ -87,28 +112,42 @@ const submitFormThrottle = useThrottle(() => {
             if (!valid) {
                 // 验证失败
                 ElMessage.warning(getFirstError(invalidFields))
+                return
+            }
+
+            // 如果是编辑表单，需要确认表单内数据是否填写完善
+            for (const item of customValidFieldRefs.value.values()) {
+                if (item.el.validate && isFunction(item.el.validate)) {
+                    // 判断验证是否通过
+                    const { isValid, message } = item.el.validate() as ValidateResult
+                    if (!isValid) {
+                        ElMessage.warning(`${item.field.label}${message}`)
+                        return
+                    }
+                }
             }
 
             // 真实处理，可以进行自定义处理，也可以直接通过接口进行保存
-            else if (props.onConfirm) {
+            if (props.onConfirm) {
                 try {
                     await props.onConfirm(formData.value)
-                } catch(e) {}
+                } catch (e) {}
+                return
             }
 
             // 使用远程接口
-            else if (props.url) {
-                await useRequest(props.url, {
-                    method: props.method,
-                    params: formData.value,
-                }, props.onBeforeLoad, props.onLoadSuccess).finally(() => {
-                    sumitLoading.value = false
-                })
-            }
+            // if (props.url) {
+            //     await useRequest(props.url, {
+            //         method: props.method,
+            //         params: formData.value,
+            //     }, props.onBeforeLoad, props.onLoadSuccess).finally(() => {
+            //         sumitLoading.value = false
+            //     })
+            // }
 
             sumitLoading.value = false
         })
-    } catch(e) {
+    } finally {
         sumitLoading.value = false
     }
 }, 1000)
@@ -139,7 +178,6 @@ const reset = async () => {
         await props.onReset()
     }
 }
-
 </script>
 
 <template>
@@ -171,6 +209,21 @@ const reset = async () => {
                     <component
                         :is="field.componentInstance"
                         v-model="formData[field.name]"
+                        :display-name="field.label"
+                        :ref="
+                            (el: any) => {
+                                if (field.validator) {
+                                    if (el) {
+                                        customValidFieldRefs.set(field.name, {
+                                            el,
+                                            field: field
+                                        })
+                                    } else {
+                                        customValidFieldRefs.delete(field.name)
+                                    }
+                                }
+                            }
+                        "
                         v-bind="field.attrs"
                     />
                 </slot>
@@ -212,7 +265,7 @@ const reset = async () => {
 <style lang="scss" scoped>
 .form__wrapper {
     padding-top: 20px;
-    
+
     &.form--inline__wrapper {
         .submit__wrapper {
             display: inline-flex;

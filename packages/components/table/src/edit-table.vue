@@ -1,5 +1,6 @@
 <!-- 页面属性配置 -->
 <template>
+    {{ tableData }}
     <f-table
         ref="tableRef"
         :columns="columns"
@@ -8,10 +9,16 @@
         :show-page="false"
         v-bind="$attrs"
         @row-dblclick="rowDblclick"
+        v-click-outside="completeEdit"
     >
         <template v-for="column in computedFields" #[column.prop]="scope">
             <!-- 如果 C 定义了插槽，就直接透传，完全以 C 为准 -->
-            <slot v-if="$slots[column.prop!]" :name="column.prop" v-bind="scope" :edit="scope.$index == currentEditIndex"></slot>
+            <slot
+                v-if="$slots[column.prop!]"
+                :name="column.prop"
+                v-bind="scope"
+                :edit="scope.$index == currentEditIndex"
+            ></slot>
             <!-- 如果 C 没定义插槽 -->
             <template v-else>
                 <!-- 编辑态 -->
@@ -47,11 +54,12 @@ import { computed, ref } from 'vue'
 import { ButtonOption, OptionData, TableColumn } from './table'
 import { loadComponent } from '@/components/form'
 import { CellRender } from './render'
+import { useDefineModel, useThrottle } from '@/hooks'
+import { ValidateResult } from '@/types'
 
 defineOptions({
     name: 'FEditTable'
 })
-
 
 interface Prop {
     /**
@@ -136,7 +144,7 @@ const props = withDefaults(defineProps<Prop>(), {
     useMove: false
 })
 const tableRef = ref()
-const tableData = defineModel<any[]>({ default: [] })
+const tableData = useDefineModel([] as any[])
 const currentEditIndex = ref()
 
 /**
@@ -193,6 +201,7 @@ function addPageOption() {
 
     tableData.value.push({})
     currentEditIndex.value = tableData.value.length - 1
+
     tableRef.value.confirm()
 }
 
@@ -200,27 +209,23 @@ function addPageOption() {
  * 判断当前属性行是否已经编辑完成
  */
 function pageOptionIsWriteComplete() {
-    if (currentEditIndex.value != undefined) {
-        const currentEditData = tableData.value[currentEditIndex.value]
-        if (currentEditData == undefined) {
-            return
-        }
-
-        // 判断属性是否都填写了
-        for (const item in props.columns) {
-            const columnItem = props.columns[item]
-            const columnItemValue = currentEditData[columnItem.prop!]
-            const required = columnItem.required || false
-
-            if (required && (columnItemValue == undefined || columnItemValue == '')) {
-                ElMessage.warning(`请输入${columnItem.label}`)
-                return false
-            }
-        }
+    const { isValid, field } = validate()
+    if (isValid) {
+        return true
     }
 
-    return true
+    ElMessage.warning(`请输入${field}`)
 }
+
+/**
+ * 完成编辑
+ */
+const completeEdit = useThrottle(() => {
+    const { isValid } = validate()
+    if (isValid) {
+        currentEditIndex.value = undefined
+    }
+})
 
 /**
  * 双击行，进行编辑
@@ -241,6 +246,47 @@ function rowDblclick(row: any) {
         currentEditIndex.value = index
     }
 }
+
+/**
+ * 数据验证
+ */
+function validate(): ValidateResult {
+    if (currentEditIndex.value == undefined) {
+        return {
+            isValid: true
+        }
+    }
+
+    const currentEditData = tableData.value[currentEditIndex.value]
+    if (currentEditData == undefined) {
+        return {
+            isValid: true
+        }
+    }
+
+    // 判断属性是否都填写了
+    for (const item in props.columns) {
+        const columnItem = props.columns[item]
+        const columnItemValue = currentEditData[columnItem.prop!]
+        const required = columnItem.required || false
+
+        if (required && (columnItemValue == undefined || columnItemValue == '')) {
+            return {
+                isValid: false,
+                field: columnItem.label,
+                message: `第${currentEditIndex.value + 1}行${columnItem.label}不能为空`
+            }
+        }
+    }
+
+    return {
+        isValid: true
+    }
+}
+
+defineExpose({
+    validate
+})
 </script>
 
 <style lang="scss" scoped>

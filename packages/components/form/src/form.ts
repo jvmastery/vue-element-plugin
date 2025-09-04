@@ -3,7 +3,6 @@ import { defineAsyncComponent, PropType } from 'vue'
 import {
     ElAutocomplete,
     ElCalendar,
-    ElCascader,
     ElColorPicker,
     ElDatePicker,
     ElInput,
@@ -19,7 +18,7 @@ import {
     ElTransfer,
     ElUpload
 } from 'element-plus'
-import { iconPropType } from '@/utils'
+import { iconPropType, isString } from '@/utils'
 import { baseRequestInfo } from '@/components/request'
 import { Method } from '@/constants'
 
@@ -58,6 +57,10 @@ export interface FormField<T extends FieldValueType = FieldValueType> {
      * 属性值类型
      */
     dataType?: T
+    /**
+     * 默认值
+     */
+    defaultValue?: any
     /**
      * 标签宽度
      */
@@ -108,6 +111,16 @@ export interface ComponentTypeInfo {
      * 自定义配置属性
      */
     options: AnyObject
+    /**
+     * 自定义数据验证
+     */
+    validator?: boolean
+    /**
+     * 数据格式化时使用
+     * @param value 
+     * @returns 
+     */
+    formatter?: (value: any) => any
 }
 
 /**
@@ -180,9 +193,19 @@ const typeMapping: Record<string, ReturnType<typeof defineAsyncComponent> | Comp
 
     empty: defineAsyncComponent(() => import('./empty.vue')),
     radio: defineAsyncComponent(() => import('@/components/radio')),
-    checkbox: defineAsyncComponent(() => import('@/components/checkbox')),
+    checkbox: {
+        comp: defineAsyncComponent(() => import('@/components/checkbox')),
+        /**
+         * checkbox需要的是一个数组
+         */
+        formatter: (value: any) => isString(value) ? value.split(',') : value
+    },
     select: defineAsyncComponent(() => import('@/components/select')),
-    editor: defineAsyncComponent(() => import('@/components/editor'))
+    editor: defineAsyncComponent(() => import('@/components/editor')),
+    'edit-table': {
+        comp: defineAsyncComponent(() => import('@/components/edit-table')),
+        validator: true
+    }
 }
 
 /**

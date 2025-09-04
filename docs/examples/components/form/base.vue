@@ -33,6 +33,7 @@ const fiels: FormField[] = [
         name: 'favoir',
         label: '爱好',
         type: 'checkbox',
+        defaultValue: "1",
         options: [
             {
                 label: '运动',
@@ -49,7 +50,7 @@ const fiels: FormField[] = [
         ]
     },
     {
-        name: 'favoir',
+        name: 'favoir1',
         label: '爱好1',
         type: 'cascader',
         options: [
@@ -77,6 +78,7 @@ const fiels: FormField[] = [
         name: 'favoir-s',
         label: '爱好',
         type: 'select',
+        defaultValue: 2,
         options: [
             {
                 label: '运动',
@@ -114,10 +116,29 @@ const fiels: FormField[] = [
         attrs: {
             type: 'textarea'
         }
+    },
+    {
+        name: 'editTable',
+        label: '编辑列表',
+        colspan: 2,
+        type: 'edit-table',
+        columns: [
+            {
+                label: '存储值',
+                prop: 'code',
+                width: 150,
+                required: true
+            },
+            {
+                label: '显示值',
+                prop: 'value',
+                required: true
+            }
+        ]
     }
 ]
 
-const form = ref({})
+const form = ref()
 </script>
 
 <template>
