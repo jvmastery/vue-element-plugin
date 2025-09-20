@@ -3,8 +3,7 @@ import { computed, ref, watchEffect } from 'vue'
 import { checkboxProps } from './checkbox'
 import { AnyObject } from '@/types'
 import { ElCheckbox, ElCheckboxButton } from 'element-plus'
-import { useDefineModel, useRequest } from '@/hooks'
-import { isString } from '@/utils'
+import { useRequest } from '@/hooks'
 
 defineOptions({
     name: 'FCheckbox'
@@ -16,10 +15,7 @@ const props = defineProps(checkboxProps)
  * 远程请求数据
  */
 const remoteRequestData = ref<AnyObject[]>([])
-const checkboxValue = useDefineModel([], undefined, (value: any) => {
-    // 需要数组格式
-    return isString(value) ? value.split(',') : value
-})
+const checkboxValue = defineModel({ type: Array, default: () => [] })
 
 /**
  * 监听数据请求url，请求数据

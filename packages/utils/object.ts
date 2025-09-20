@@ -2,7 +2,19 @@
 
 import { AnyObject } from '@/types'
 
+/**
+* 获取对象的键数组
+* @template T 任意对象类型
+* @param {T} arr 输入的对象
+* @returns {Array<keyof T>} 返回对象的键数组
+*/
 export const keysOf = <T extends object>(arr: T) => Object.keys(arr) as Array<keyof T>
+
+/**
+* 将对象的键值对转换为数组格式
+* @param arr 输入的对象
+* @returns 返回一个包含对象键值对的二维数组
+*/
 export const entriesOf = <T extends object>(arr: T) => Object.entries(arr)
 
 /**

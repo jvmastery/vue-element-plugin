@@ -1,6 +1,5 @@
 <!-- 页面属性配置 -->
 <template>
-    {{ tableData }}
     <f-table
         ref="tableRef"
         :columns="columns"
@@ -50,11 +49,11 @@
 <script setup lang="ts">
 import { Bottom, Delete, Top } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { computed, ref } from 'vue'
+import { computed, PropType, ref } from 'vue'
 import { ButtonOption, OptionData, TableColumn } from './table'
 import { loadComponent } from '@/components/form'
 import { CellRender } from './render'
-import { useDefineModel, useThrottle } from '@/hooks'
+import { useThrottle } from '@/hooks'
 import { ValidateResult } from '@/types'
 
 defineOptions({
@@ -143,8 +142,9 @@ const props = withDefaults(defineProps<Prop>(), {
     useDelete: true,
     useMove: false
 })
+const emits = defineEmits(['update:modelValue'])
 const tableRef = ref()
-const tableData = useDefineModel([] as any[])
+const tableData = defineModel({ type: Array as PropType<any[]>, default: () => [] })
 const currentEditIndex = ref()
 
 /**

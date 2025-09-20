@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { formProps, loadComponent, type FormField } from './form'
 import { AnyObject, ValidateResult } from '@/types'
 import { ElForm, ElMessage, FormInstance } from 'element-plus'
-import { useDefineModel, useThrottle } from '@/hooks'
+import { useRequest, useThrottle } from '@/hooks'
 import { isFunction } from '@/utils'
 
 defineOptions({
@@ -27,7 +27,7 @@ const sumitLoading = ref(false)
 const customValidFieldRefs = ref<Map<string, ValidateRefType>>(new Map())
 
 // 表单属性
-const formData: AnyObject = useDefineModel({})
+const formData: AnyObject = defineModel({ type: Object, default: () => ({}) })
 
 onMounted(() => {
     props.fields?.map(field => {
@@ -35,7 +35,12 @@ onMounted(() => {
             const componentInstance = loadComponent(field.type)
             const isComponentInstance = 'comp' in componentInstance
 
-            formData.value[field.name] = isComponentInstance ? componentInstance.formatter(field.defaultValue) : field.defaultValue
+            formData.value[field.name] = isComponentInstance
+                ? componentInstance.formatter(field.defaultValue)
+                : field.defaultValue
+        } else if (field.type === 'edit-table') {
+            // 初始化
+            formData.value[field.name] = []
         }
     })
 })
@@ -136,14 +141,19 @@ const submitFormThrottle = useThrottle(() => {
             }
 
             // 使用远程接口
-            // if (props.url) {
-            //     await useRequest(props.url, {
-            //         method: props.method,
-            //         params: formData.value,
-            //     }, props.onBeforeLoad, props.onLoadSuccess).finally(() => {
-            //         sumitLoading.value = false
-            //     })
-            // }
+            if (props.url) {
+                await useRequest(
+                    props.url,
+                    {
+                        method: props.method,
+                        params: formData.value
+                    },
+                    props.onBeforeLoad,
+                    props.onLoadSuccess
+                ).finally(() => {
+                    sumitLoading.value = false
+                })
+            }
 
             sumitLoading.value = false
         })

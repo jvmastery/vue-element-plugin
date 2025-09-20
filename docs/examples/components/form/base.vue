@@ -33,7 +33,7 @@ const fiels: FormField[] = [
         name: 'favoir',
         label: '爱好',
         type: 'checkbox',
-        defaultValue: "1",
+        defaultValue: "1,2",
         options: [
             {
                 label: '运动',
@@ -138,7 +138,8 @@ const fiels: FormField[] = [
     }
 ]
 
-const form = ref()
+const form = ref({})
+
 </script>
 
 <template>

@@ -18,7 +18,7 @@ import {
     ElTransfer,
     ElUpload
 } from 'element-plus'
-import { iconPropType, isString } from '@/utils'
+import { iconPropType, isString, toJson } from '@/utils'
 import { baseRequestInfo } from '@/components/request'
 import { Method } from '@/constants'
 
@@ -204,7 +204,8 @@ const typeMapping: Record<string, ReturnType<typeof defineAsyncComponent> | Comp
     editor: defineAsyncComponent(() => import('@/components/editor')),
     'edit-table': {
         comp: defineAsyncComponent(() => import('@/components/edit-table')),
-        validator: true
+        validator: true,
+        formatter: (value: any) => toJson(value, [])
     }
 }
 
