@@ -220,12 +220,25 @@ function pageOptionIsWriteComplete() {
 /**
  * 完成编辑
  */
-const completeEdit = useThrottle(() => {
+const completeEditThrottle = useThrottle(() => {
     const { isValid } = validate()
     if (isValid) {
         currentEditIndex.value = undefined
     }
 })
+
+/**
+ * 完成编辑
+ */
+const completeEdit = (event: MouseEvent) => {
+    const target = event.target as HTMLElement
+    if (target?.closest('.el-popper')) {
+        // 弹窗元素，不管
+        return
+    }
+
+    completeEditThrottle()
+}
 
 /**
  * 双击行，进行编辑
