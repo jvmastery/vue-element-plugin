@@ -11,7 +11,31 @@ defineOptions({
 
 const props = defineProps(selectProps)
 const slots: any = useSlots()
-const selectValue = defineModel({ required: true })
+const selectValue = defineModel<string | number | (string | number)[]>({ required: true })
+
+// 转换代理
+const innerValue = computed({
+    get() {
+        if (props.multiple) {
+            let arr: any[] = []
+            if (Array.isArray(selectValue.value)) {
+                arr = selectValue.value
+            } else if (typeof selectValue.value === 'string') {
+                arr = selectValue.value.split(props.separator).filter(Boolean)
+            } else if (typeof selectValue.value === 'number') {
+                arr = [selectValue.value]
+            }
+            // ✅ 统一转为字符串数组传给 el-select
+            return arr.map(v => String(v))
+        } else {
+            // ✅ 单选情况也转字符串
+            return selectValue.value != null ? String(selectValue.value) : selectValue.value
+        }
+    },
+    set(val) {
+        selectValue.value = val
+    }
+})
 
 // 全选功能
 const checkAll = ref(false)
@@ -27,9 +51,14 @@ const remoteRequestData = ref<AnyObject[]>([])
  */
 watchEffect(() => {
     if (props.url) {
-        useRequest(props.url, {
-            method: props.method
-        }, props.onBeforeLoad, props.onLoadSuccess).then(resp => {
+        useRequest(
+            props.url,
+            {
+                method: props.method
+            },
+            props.onBeforeLoad,
+            props.onLoadSuccess
+        ).then(resp => {
             remoteRequestData.value.splice(0, remoteRequestData.value.length, ...resp)
         })
     }
@@ -88,7 +117,14 @@ const optionStyles = (option: any, index: number) => {
 </script>
 
 <template>
-    <el-select v-model="selectValue" filterable v-bind="$attrs" style="width: 200px" :clearable="clearable">
+    <el-select
+        v-model="innerValue"
+        filterable
+        style="width: 200px"
+        :multiple="multiple"
+        :clearable="clearable"
+        v-bind="$attrs"
+    >
         <template v-if="slots.header" #header>
             <slot name="header" :options="selectOptions" />
         </template>
@@ -107,7 +143,7 @@ const optionStyles = (option: any, index: number) => {
                 :style="optionStyles(item, index)"
                 :key="item[value]"
                 :label="item[label]"
-                :value="item[value]"
+                :value="String(item[value])"
                 :disabled="item.disabled"
             />
         </slot>

@@ -13,3 +13,15 @@ components/select/disable
 :::demo 使用 `multiple` 来定义多选。
 components/select/multiple
 :::
+
+## 自定义字段属性值
+通过自定义`label`、`value`属性来确认当期选项数据中对应的显示值和存储值。
+:::demo 
+components/select/options
+:::
+
+## 默认值设置
+设置默认值。
+:::demo 
+components/select/default
+:::

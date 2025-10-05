@@ -194,11 +194,7 @@ const typeMapping: Record<string, ReturnType<typeof defineAsyncComponent> | Comp
     empty: defineAsyncComponent(() => import('./empty.vue')),
     radio: defineAsyncComponent(() => import('@/components/radio')),
     checkbox: {
-        comp: defineAsyncComponent(() => import('@/components/checkbox')),
-        /**
-         * checkbox需要的是一个数组
-         */
-        formatter: (value: any) => isString(value) ? value.split(',') : value
+        comp: defineAsyncComponent(() => import('@/components/checkbox'))
     },
     select: defineAsyncComponent(() => import('@/components/select')),
     editor: defineAsyncComponent(() => import('@/components/editor')),

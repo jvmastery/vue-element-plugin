@@ -4,6 +4,12 @@
 components/checkbox/base
 :::
 
+## 默认值设置
+设置默认值。
+:::demo 
+components/checkbox/default
+:::
+
 ## 禁用状态
 :::demo 设置多选框不可用状态。将对应选项数据的 `disabled` 属性设置为true。
 components/checkbox/disable

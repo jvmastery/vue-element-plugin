@@ -1,6 +1,6 @@
 {
   "name": "@jvmaster/f-ui",
-  "version": "1.0.918",
+  "version": "1.0.919",
   "description": "基于element-plus二次封装基础组件库",
   "main": "dist/f-ui.umd.js",
   "module": "dist/f-ui.es.js",

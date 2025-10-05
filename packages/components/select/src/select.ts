@@ -18,6 +18,20 @@ export const selectProps = {
         default: true
     },
     /**
+     * 是否多选
+     */
+    multiple: {
+        type: Boolean,
+        default: false
+    },
+    /**
+     * 数据分隔符
+     */
+    separator: {
+        type: String,
+        default: ','
+    },
+    /**
      * 使用value值左右选项的class属性
      */
     useValueClass: {

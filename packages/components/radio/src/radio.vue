@@ -10,6 +10,17 @@ defineOptions({
 })
 
 const props = defineProps(radioProps)
+const radioValue = defineModel<number | string>({ required: true })
+
+// 转换代理：保证都是字符串类型
+const innerValue = computed({
+    get() {
+        return String(radioValue.value)
+    },
+    set(val) {
+        radioValue.value = val
+    }
+})
 
 /**
  * 远程请求数据
@@ -51,14 +62,14 @@ const styleType = computed(() => {
 </script>
 
 <template>
-    <el-radio-group v-bind="$attrs">
+    <el-radio-group v-model="innerValue" v-bind="$attrs">
         <slot>
             <component 
                 v-for="(item, index) in radioOptions" 
                 v-bind="item" 
                 :is="styleType" 
                 :key="index" 
-                :value="item[value]" 
+                :value="String(item[value])" 
                 :disabled="item.disabled"
                 :border="border"
             >

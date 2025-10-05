@@ -35,7 +35,7 @@ onMounted(() => {
             const componentInstance = loadComponent(field.type)
             const isComponentInstance = 'comp' in componentInstance
 
-            formData.value[field.name] = isComponentInstance
+            formData.value[field.name] = isComponentInstance && componentInstance.formatter
                 ? componentInstance.formatter(field.defaultValue)
                 : field.defaultValue
         } else if (field.type === 'edit-table') {

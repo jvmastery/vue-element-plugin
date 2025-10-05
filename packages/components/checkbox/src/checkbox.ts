@@ -22,6 +22,13 @@ export const checkboxBaseProps = {
         type: Array as PropType<AnyObject[]>
     },
     /**
+     * 分隔符
+     */
+    separator: {
+        type: String,
+        default: ','
+    },
+    /**
      * 是否显示边框
      */
     border: {
